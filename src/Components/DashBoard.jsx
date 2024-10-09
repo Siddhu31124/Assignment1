@@ -9,8 +9,14 @@ import { TailSpin } from "react-loader-spinner";
 import dayjs from "dayjs";
 import { useState } from "react";
 import DeleteModal from "./DeleteModal";
+import AddModel from "./AddTranscation";
 export default function Dashboard() {
-  const [openModal, setOpenModal] = useState(false);
+  const [selectedData, setSelectedData] = useState();
+  const [openModal, setOpenModal] = useState({
+    delete: false,
+    add: false,
+    edit: false,
+  });
   const { data, isPending, isError } = useQuery({
     queryKey: ["lastThree"],
     queryFn: fetchlasttransaction,
@@ -23,17 +29,34 @@ export default function Dashboard() {
     queryKey: ["total"],
     queryFn: fetchtotaltransaction,
   });
-  function handelModel() {
-    setOpenModal((preVal) => !preVal);
+  function handelModel(item, data) {
+    if (data) {
+      setSelectedData(data);
+    }
+    let identifier = item;
+    setOpenModal((prevVal) => {
+      return { ...prevVal, [identifier]: !prevVal[identifier] };
+    });
   }
   return (
     <div className="dashmain">
-      <DeleteModal isOpen={openModal} handelFunction={handelModel} />
+      <DeleteModal isOpen={openModal.delete} handelFunction={handelModel} />
+      <AddModel
+        isOpen={openModal.add}
+        handelFunction={handelModel}
+        type="add"
+      />
+      <AddModel
+        isOpen={openModal.edit}
+        handelFunction={handelModel}
+        type="edit"
+        data={selectedData}
+      />
       <nav>
         <h3 className="text-2xl font-bold">Accounts</h3>
         <button
           className="bg-blue-700 text-white hover:bg-blue-800 p-2 text-xs font-medium rounded-lg"
-          onClick={handelModel}
+          onClick={() => handelModel("add")}
         >
           + Add Trancations
         </button>
@@ -104,10 +127,16 @@ export default function Dashboard() {
                     {eachItems.type === "credit" ? "+" : "-"}${eachItems.amount}
                   </p>
                   <p>
-                    <button className="mx-5 text-green-500 text-xl">
+                    <button
+                      onClick={() => handelModel("edit", eachItems)}
+                      className="mx-5 text-green-500 text-xl"
+                    >
                       <FaPencilAlt />
                     </button>
-                    <button className="text-red-500 text-xl">
+                    <button
+                      onClick={() => handelModel("delete")}
+                      className="text-red-500 text-xl"
+                    >
                       <MdDelete />
                     </button>
                   </p>
