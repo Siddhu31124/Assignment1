@@ -3,14 +3,18 @@ import Input from "../utils/Input";
 import { MdCancel } from "react-icons/md";
 import dayjs from "dayjs";
 export default function AddModel({ isOpen, type, handelFunction, data }) {
-  console.log(data, type);
   return (
     <div>
-      <Model isOpen={isOpen}>
+      <Model isOpen={isOpen} style="InputModel modal p-5">
         <form className="p-6 flex flex-col gap-4">
           <div className="flex justify-between">
-            <h3>Add Transcation</h3>
-            <button type="button" onClick={() => handelFunction(type)}>
+            <h3 className="font-bold text-2xl">Add Transcation</h3>
+
+            <button
+              type="button"
+              onClick={() => handelFunction(type)}
+              className="font-bold text-2xl"
+            >
               <MdCancel />
             </button>
           </div>
@@ -23,15 +27,15 @@ export default function AddModel({ isOpen, type, handelFunction, data }) {
             placeholder="Transaction Name"
             defaultValue={data ? data.transaction_name : ""}
           />
-          <div>
+          <div className=" flex flex-col gap-1">
             <label htmlFor="type">Transcation Type</label>
             <select id="type" defaultValue={data ? data.type : ""}>
               <option value="">Select Transcation Type</option>
-              <option value="credit">Credit</option>
-              <option value="debit">Debit</option>
+              <option value="credit">credit</option>
+              <option value="debit">debit</option>
             </select>
           </div>
-          <div>
+          <div className=" flex flex-col gap-1">
             <label htmlFor="category">Transcation Category</label>
             <select id="category" defaultValue={data ? data.category : ""}>
               <option value="">Select</option>
@@ -57,7 +61,12 @@ export default function AddModel({ isOpen, type, handelFunction, data }) {
             placeholder="Date"
             defaultValue={data ? dayjs(data.date).format("DD/MM/YYYY") : ""}
           />
-          <button onClick={() => handelFunction(type)}>Add Transcations</button>
+          <button
+            onClick={() => handelFunction(type)}
+            className="bg-blue-600 p-2 text-white font-bold rounded-lg"
+          >
+            Add Transcations
+          </button>
         </form>
       </Model>
     </div>

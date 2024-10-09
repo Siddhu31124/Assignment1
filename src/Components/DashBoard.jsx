@@ -26,10 +26,11 @@ export default function Dashboard() {
     isPending: totalPending,
     isError: totalError,
   } = useQuery({
-    queryKey: ["total"],
+    queryKey: ["transcation"],
     queryFn: fetchtotaltransaction,
   });
-  function handelModel(item, data) {
+  function handelModel(item, data, id) {
+    console.log(data);
     if (data) {
       setSelectedData(data);
     }
@@ -40,7 +41,11 @@ export default function Dashboard() {
   }
   return (
     <div className="dashmain">
-      <DeleteModal isOpen={openModal.delete} handelFunction={handelModel} />
+      <DeleteModal
+        isOpen={openModal.delete}
+        handelFunction={handelModel}
+        id={selectedData}
+      />
       <AddModel
         isOpen={openModal.add}
         handelFunction={handelModel}
@@ -71,7 +76,7 @@ export default function Dashboard() {
                 <p className="text-red-500 text-xl ">Fail to Fetch Data</p>
               )}
               <br />
-              <span className="text-white text-base">Credit</span>
+              <span className="text-base">Credit</span>
             </p>
             <img src="Credit.png" />
           </div>
@@ -81,7 +86,7 @@ export default function Dashboard() {
               {totalPending && <p className="text-xl">Loding...</p>}
               {totalError && <p className="text-xl">Fail to Fetch Data</p>}
               <br />
-              <span className="text-white text-base">Debit</span>
+              <span className="text-base">Debit</span>
             </p>
             <img src="Debit.png" />
           </div>
@@ -134,7 +139,7 @@ export default function Dashboard() {
                       <FaPencilAlt />
                     </button>
                     <button
-                      onClick={() => handelModel("delete")}
+                      onClick={() => handelModel("delete", eachItems.id)}
                       className="text-red-500 text-xl"
                     >
                       <MdDelete />

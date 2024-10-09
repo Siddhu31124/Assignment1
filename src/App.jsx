@@ -8,6 +8,9 @@ import CreditPage from "./Pages/CreditPage";
 import DebitPage from "./Pages/DebitPage";
 import ErrorPage from "./Pages/ErrorPage";
 import LoginPage from "./Pages/LoginPage";
+import { Toaster } from "react-hot-toast";
+import { queryClient } from "./Components/http";
+
 function App() {
   const router = createBrowserRouter([
     { path: "/login", element: <LoginPage /> },
@@ -29,10 +32,10 @@ function App() {
       ],
     },
   ]);
-  const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
+      <Toaster position="top-center" />
     </QueryClientProvider>
   );
 }

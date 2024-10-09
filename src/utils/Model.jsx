@@ -1,6 +1,6 @@
 import { createPortal } from "react-dom";
 import { useRef, useEffect } from "react";
-export default function Model({ children, isOpen }) {
+export default function Model({ children, isOpen, style }) {
   const dialogRef = useRef();
   useEffect(() => {
     if (isOpen) {
@@ -10,7 +10,7 @@ export default function Model({ children, isOpen }) {
   }, [isOpen]);
   return createPortal(
     <>
-      <dialog className="modal p-5" ref={dialogRef}>
+      <dialog className={style} ref={dialogRef}>
         {children}
       </dialog>
     </>,

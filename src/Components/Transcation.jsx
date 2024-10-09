@@ -6,14 +6,43 @@ import { FaPencilAlt } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import dayjs from "dayjs";
 import { TailSpin } from "react-loader-spinner";
+import DeleteModal from "./DeleteModal";
+import AddModel from "./AddTranscation";
+import { useState } from "react";
 export default function Trancation() {
+  const [selectedData, setSelectedData] = useState();
+  const [deleteId, setDeleteId] = useState("");
+  const [openModal, setOpenModal] = useState({
+    delete: false,
+    add: false,
+    edit: false,
+  });
   const { data, isPending, isError, error } = useQuery({
-    queryKey: ["Alltrancation"],
+    queryKey: ["transcationAll"],
     queryFn: fetchData,
   });
-
+  function handelModel(item, data) {
+    if (data) {
+      setSelectedData(data);
+    }
+    let identifier = item;
+    setOpenModal((prevVal) => {
+      return { ...prevVal, [identifier]: !prevVal[identifier] };
+    });
+  }
   return (
     <div className="transcationmain">
+      <DeleteModal
+        isOpen={openModal.delete}
+        handelFunction={handelModel}
+        id={selectedData}
+      />
+      <AddModel
+        isOpen={openModal.edit}
+        handelFunction={handelModel}
+        type="edit"
+        data={selectedData}
+      />
       {isPending && (
         <div className="Loder">
           <TailSpin
@@ -69,10 +98,16 @@ export default function Trancation() {
                     {eachItem.type === "credit" ? "+" : "-"}${eachItem.amount}
                   </td>
                   <td>
-                    <button className="mx-5 text-green-500">
+                    <button
+                      className="mx-5 text-green-500"
+                      onClick={() => handelModel("edit", eachItem)}
+                    >
                       <FaPencilAlt />
                     </button>
-                    <button className="text-red-500">
+                    <button
+                      className="text-red-500"
+                      onClick={() => handelModel("delete", eachItem.id)}
+                    >
                       <MdDelete />
                     </button>
                   </td>
