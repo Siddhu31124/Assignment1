@@ -16,7 +16,7 @@ export default function Credit() {
     edit: false,
   });
   const { data, isPending, isError } = useQuery({
-    queryKey: ["transcationAll"],
+    queryKey: ["transcation", "credit"],
     queryFn: fetchData,
   });
   let creditArray = [];

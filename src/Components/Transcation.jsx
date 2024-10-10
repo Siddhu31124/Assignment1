@@ -18,7 +18,7 @@ export default function Trancation() {
     edit: false,
   });
   const { data, isPending, isError, error } = useQuery({
-    queryKey: ["transcationAll"],
+    queryKey: ["transcation", "all"],
     queryFn: fetchData,
   });
   function handelModel(item, data) {

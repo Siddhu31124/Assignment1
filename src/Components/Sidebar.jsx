@@ -1,30 +1,46 @@
 import { NavLink } from "react-router-dom";
 import { IoHome } from "react-icons/io5";
 import { GrTransaction } from "react-icons/gr";
+import { useNavigate } from "react-router-dom";
 export default function Sidebar() {
+  const navigate = useNavigate();
+  function handelLoqout() {
+    localStorage.removeItem("token");
+    navigate("/login");
+  }
   return (
     <aside className="sidebar">
-      <img src="Logo.png" />
-      <ul>
-        <NavLink
-          to="/"
-          className={({ isActive }) => (isActive ? "text-blue-600" : "")}
+      <div>
+        <img src="Logo.png" />
+        <ul>
+          <NavLink
+            to="/"
+            className={({ isActive }) => (isActive ? "text-blue-600" : "")}
+          >
+            <li className="font-bold flex items-center">
+              <IoHome className="mr-2" />
+              Dashboard
+            </li>
+          </NavLink>
+          <NavLink
+            to="/transaction"
+            className={({ isActive }) => (isActive ? "text-blue-600" : "")}
+          >
+            <li className="font-bold flex items-center">
+              <GrTransaction className="mr-2" />
+              Transaction
+            </li>
+          </NavLink>
+        </ul>
+      </div>
+      <div>
+        <button
+          onClick={handelLoqout}
+          className="bg-blue-700 text-white hover:bg-blue-800 p-2 text-xs font-medium rounded-lg"
         >
-          <li className="font-bold flex items-center">
-            <IoHome className="mr-2" />
-            Dashboard
-          </li>
-        </NavLink>
-        <NavLink
-          to="/transaction"
-          className={({ isActive }) => (isActive ? "text-blue-600" : "")}
-        >
-          <li className="font-bold flex items-center">
-            <GrTransaction className="mr-2" />
-            Transaction
-          </li>
-        </NavLink>
-      </ul>
+          Logout
+        </button>
+      </div>
     </aside>
   );
 }

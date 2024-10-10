@@ -3,14 +3,13 @@ import DashBoardPage from "./Pages/DashboardPage";
 import RootPage from "./Pages/RootPage";
 import TrancationPage from "./Pages/TranscationPage";
 import TrancationrootPage from "./Pages/Transcationroot";
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import CreditPage from "./Pages/CreditPage";
 import DebitPage from "./Pages/DebitPage";
 import ErrorPage from "./Pages/ErrorPage";
 import LoginPage from "./Pages/LoginPage";
 import { Toaster } from "react-hot-toast";
 import { queryClient } from "./Components/http";
-
 function App() {
   const router = createBrowserRouter([
     { path: "/login", element: <LoginPage /> },

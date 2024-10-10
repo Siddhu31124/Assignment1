@@ -1,20 +1,43 @@
 import React from "react";
-import { Form } from "react-router-dom";
-
+import { LoginToken } from "./http";
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router";
+import { useEffect } from "react";
 export default function Login() {
+  const navigate = useNavigate();
+  const { mutate, data } = useMutation({
+    mutationFn: LoginToken,
+    onSuccess: () => {
+      navigate("/");
+    },
+  });
+  function handelLogin(event) {
+    event.preventDefault();
+    let data = new FormData(event.target);
+    let loginData = Object.fromEntries(data.entries());
+    mutate({ data: loginData });
+  }
+  const id = JSON.parse(localStorage.getItem("token"));
+
+  useEffect(() => {
+    if (id) {
+      navigate("/");
+    }
+  }, [id, navigate]);
+
   return (
     <div className="login-container">
       <div className="login-form">
         <h1 className="login-title">Login</h1>
-        <Form method="POST">
+        <form onSubmit={handelLogin}>
           <div className="form-group">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="email">Email</label>
             <input
               type="text"
-              id="username"
+              id="email"
               className="form-input"
-              placeholder="Enter your username"
-              name="username"
+              placeholder="Enter your email"
+              name="email"
               required
             />
           </div>
@@ -32,7 +55,7 @@ export default function Login() {
           <button type="submit" className="login-btn">
             Login
           </button>
-        </Form>
+        </form>
       </div>
     </div>
   );

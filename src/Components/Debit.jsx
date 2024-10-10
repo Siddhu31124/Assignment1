@@ -17,7 +17,7 @@ export default function Debit() {
     edit: false,
   });
   const { data, isPending, isError, error } = useQuery({
-    queryKey: ["transcationAll"],
+    queryKey: ["transcation", "debit"],
     queryFn: fetchData,
   });
   let debitArray = [];

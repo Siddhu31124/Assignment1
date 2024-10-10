@@ -10,6 +10,7 @@ import dayjs from "dayjs";
 import { useState } from "react";
 import DeleteModal from "./DeleteModal";
 import AddModel from "./AddTranscation";
+import { redirect } from "react-router";
 export default function Dashboard() {
   const [selectedData, setSelectedData] = useState();
   const [openModal, setOpenModal] = useState({
@@ -18,7 +19,7 @@ export default function Dashboard() {
     edit: false,
   });
   const { data, isPending, isError } = useQuery({
-    queryKey: ["lastThree"],
+    queryKey: ["transcation", "lastThree"],
     queryFn: fetchlasttransaction,
   });
   const {
@@ -29,6 +30,10 @@ export default function Dashboard() {
     queryKey: ["transcation"],
     queryFn: fetchtotaltransaction,
   });
+  let id = JSON.parse(localStorage.getItem("token"));
+  if (!id) {
+    redirect("/login");
+  }
   function handelModel(item, data) {
     if (data) {
       setSelectedData(data);
