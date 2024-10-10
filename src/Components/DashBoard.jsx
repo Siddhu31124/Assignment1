@@ -29,8 +29,7 @@ export default function Dashboard() {
     queryKey: ["transcation"],
     queryFn: fetchtotaltransaction,
   });
-  function handelModel(item, data, id) {
-    console.log(data);
+  function handelModel(item, data) {
     if (data) {
       setSelectedData(data);
     }

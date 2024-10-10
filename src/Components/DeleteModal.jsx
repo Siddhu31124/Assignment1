@@ -11,11 +11,10 @@ export default function DeleteModal({ isOpen, handelFunction, id }) {
     mutationKey: ["deleteFn"],
     mutationFn: handleTransactionDelete,
     onSuccess: () => {
-      handelFunction("delete");
       queryClient.invalidateQueries({
         queryKey: ["transcation"],
-        refetchType: "none",
       });
+      handelFunction("delete");
       toast.success("Delete Sucessfully");
     },
   });

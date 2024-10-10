@@ -8,8 +8,8 @@ export async function fetchData(){
         method: "get",
             baseURL: "https://bursting-gelding-24.hasura.app/api/rest/all-transactions",
             params: {
-                limit: 10,
-                offset: 2,
+                limit: 100,
+                offset: 0,
             },
             headers: {
             "Content-Type": "application/json",
@@ -67,3 +67,43 @@ export const handleTransactionDelete = async ({id}) => {
               },
             });  
   };
+export async function handelAddTranscation({data}){
+    console.log(data)
+    const url =
+    "https://bursting-gelding-24.hasura.app/api/rest/add-transaction";
+
+  const res = await axios.post(
+    url,
+    {...data,user_id:1},
+    {
+      headers: {
+        "x-hasura-admin-secret":
+          "g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF",
+        "x-hasura-role": "user",
+        "x-hasura-user-id": 1,
+      },
+    }
+  );
+
+   
+}
+export async function handelEditTranscation({data,id}){
+    console.log(id)
+    const url =
+    "https://bursting-gelding-24.hasura.app/api/rest/update-transaction";
+
+  const res = await axios.post(
+    url,
+    {...data,id:id},
+    {
+      headers: {
+        "x-hasura-admin-secret":
+          "g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF",
+        "x-hasura-role": "user",
+        "x-hasura-user-id": 1,
+      },
+    }
+  );
+
+   
+}
