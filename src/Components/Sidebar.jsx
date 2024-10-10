@@ -4,12 +4,18 @@ import { GrTransaction } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
 export default function Sidebar() {
   const navigate = useNavigate();
+  const path = window.location.pathname;
   function handelLogout() {
     localStorage.removeItem("token");
     navigate("/login");
   }
   return (
     <aside className="sidebar">
+      {path === "/" ? (
+        <div className="active_indicator_dashboard">i</div>
+      ) : (
+        <div className="active_indicator_transaction">i</div>
+      )}
       <div>
         <img src="Logo.png" />
         <ul>

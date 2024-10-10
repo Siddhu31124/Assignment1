@@ -1,17 +1,12 @@
-import { CiCircleChevUp } from "react-icons/ci";
-import { CiCircleChevDown } from "react-icons/ci";
-import { FaPencilAlt } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
-import { useQuery } from "@tanstack/react-query";
 import { fetchLastTransaction } from "./http";
-import { fetchTotalTransaction } from "./http";
-import { TailSpin } from "react-loader-spinner";
-import { redirect } from "react-router";
+import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import dayjs from "dayjs";
+import { DashBoardLoader } from "../utils/Loader";
 import DeleteModal from "./DeleteModal";
 import AddModel from "./AddModal";
 import EditModel from "./EditModal";
+import AmountContainer from "./AmountContainer";
+import TableRow from "../utils/TableData";
 export default function DashBoard() {
   const [selectedData, setSelectedData] = useState();
   const [openModal, setOpenModal] = useState({
@@ -22,14 +17,6 @@ export default function DashBoard() {
   const { data, isPending, isError } = useQuery({
     queryKey: ["transaction", "lastThree"],
     queryFn: fetchLastTransaction,
-  });
-  const {
-    data: totalData,
-    isPending: totalPending,
-    isError: totalError,
-  } = useQuery({
-    queryKey: ["transaction"],
-    queryFn: fetchTotalTransaction,
   });
   function handelModel(item, data) {
     if (data) {
@@ -68,98 +55,14 @@ export default function DashBoard() {
         </button>
       </nav>
       <main className="p-8">
-        <div className="dash_amount">
-          <div>
-            <div className="text-green-400 text-3xl font-bold">
-              {(totalData &&
-                totalData.totals_credit_debit_transactions &&
-                totalData.totals_credit_debit_transactions[1] &&
-                totalData.totals_credit_debit_transactions[1].sum) ||
-                0}
-              {totalPending && <p className="text-xl">Loading...</p>}
-              {totalError && (
-                <p className="text-red-500 text-xl ">Fail to Fetch Data</p>
-              )}
-              <br />
-              <span className="text-base">Credit</span>
-            </div>
-            <img src="Credit.png" />
-          </div>
-          <div>
-            <div className="text-red-500 text-3xl font-bold">
-              {(totalData &&
-                totalData.totals_credit_debit_transactions &&
-                totalData.totals_credit_debit_transactions[0] &&
-                totalData.totals_credit_debit_transactions[0].sum) ||
-                0}
-              {totalPending && <p className="text-xl">Loading...</p>}
-              {totalError && (
-                <p className="text-red-500 text-xl ">Fail to Fetch Data</p>
-              )}
-              <br />
-              <span className="text-base">Debit</span>
-            </div>
-            <img src="Debit.png" />
-          </div>
-        </div>
+        <AmountContainer />
         <h3 className="mb-3 text-2xl font-bold">Last Transactions</h3>
-        {isPending && (
-          <div className="ml-96 pl-12 pt-28">
-            <TailSpin
-              visible={true}
-              height="80"
-              width="80"
-              color="blue"
-              ariaLabel="tail-spin-loading"
-              radius="1"
-              wrapperStyle={{}}
-              wrapperClass=""
-            />
-          </div>
-        )}
+        {isPending && <DashBoardLoader />}
         {isError && <p className="text-red-500 text-xl ">Fail to Fetch Data</p>}
         {data && (
-          <div>
-            <ul className="transaction_list_container">
-              {data.transactions.map((eachItems) => (
-                <li key={eachItems.id} className="dash-last-transaction">
-                  <p className="Arrow">
-                    {eachItems.type === "credit" ? (
-                      <CiCircleChevUp className="text-2xl text-green-600" />
-                    ) : (
-                      <CiCircleChevDown className="text-2xl text-red-600" />
-                    )}
-                    {eachItems.transaction_name}
-                  </p>
-                  <p>{eachItems.category}</p>
-                  <p>{dayjs(eachItems.data).format("YY MMM, hh:mm A")}</p>
-                  <p
-                    className={
-                      eachItems.type === "credit"
-                        ? "text-green-600"
-                        : "text-red-600"
-                    }
-                  >
-                    {eachItems.type === "credit" ? "+" : "-"}${eachItems.amount}
-                  </p>
-                  <p>
-                    <button
-                      onClick={() => handelModel("edit", eachItems)}
-                      className="mx-5 text-green-500 text-xl"
-                    >
-                      <FaPencilAlt />
-                    </button>
-                    <button
-                      onClick={() => handelModel("delete", eachItems.id)}
-                      className="text-red-500 text-xl"
-                    >
-                      <MdDelete />
-                    </button>
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <table className="transaction_table_dashboard">
+            <TableRow data={data} handelModel={handelModel} />
+          </table>
         )}
       </main>
     </div>

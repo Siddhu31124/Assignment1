@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
 import Input from "../utils/Input";
-import Loader from "./Loader";
+import Loader from "../utils/Loader";
 export default function Login() {
   const navigate = useNavigate();
   const { mutate, isPending, isError } = useMutation({

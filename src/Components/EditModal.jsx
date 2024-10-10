@@ -5,9 +5,9 @@ import { useMutation } from "@tanstack/react-query";
 import { handelEditTransaction } from "./http";
 import { queryClient } from "./http";
 import { useState, useEffect } from "react";
+import Loader from "../utils/Loader";
 import dayjs from "dayjs";
 import toast from "react-hot-toast";
-import { TailSpin } from "react-loader-spinner";
 export default function EditModal({ isOpen, type, handelFunction, data }) {
   const [inputValues, setInputValues] = useState(data);
   useEffect(() => {
@@ -39,20 +39,7 @@ export default function EditModal({ isOpen, type, handelFunction, data }) {
   return (
     <div>
       <Modal isOpen={isOpen} style="InputModal modal p-5">
-        {isPending && (
-          <div className="Loader">
-            <TailSpin
-              visible={true}
-              height="80"
-              width="80"
-              color="blue"
-              ariaLabel="tail-spin-loading"
-              radius="1"
-              wrapperStyle={{}}
-              wrapperClass=""
-            />
-          </div>
-        )}
+        {isPending && <Loader />}
         {!isPending && (
           <form
             className="p-6 flex flex-col gap-4"

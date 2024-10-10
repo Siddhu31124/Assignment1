@@ -48,6 +48,31 @@ nav{
   border-bottom:1px solid rgb(203, 203, 215);
   background-color:white;
 }
+.active_indicator_dashboard{
+  position:absolute;
+  background-color:blue;
+  width:8px;
+  height:28px;
+  color:blue;
+  left:0px;
+  top:100px;
+  border-top-right-radius:16px;
+  border-bottom-right-radius:16px;
+  transition:all 0.3s 0s ease;
+}
+.active_indicator_transaction{
+  position:absolute;
+  background-color:blue;
+  width:8px;
+  height:28px;
+  color:blue;
+  left:0px;
+  top:138px;
+  border-top-right-radius:16px;
+  border-bottom-right-radius:16px;
+  transition:all 0.3s 0s ease;
+
+}
 .dash_amount{
     display:flex;
     justify-content:space-between;
@@ -79,7 +104,7 @@ nav{
   background-color:white;
   border-radius:14px;
 }
-.transaction_list_container li p{
+.transaction_list_container tr td{
   width:150px;
   padding:10px;
 }
@@ -104,6 +129,19 @@ nav{
   background-color:white;
   border-radius:38px;
   overflow: auto;
+}
+.transaction_table_dashboard{
+  height:35vh;
+  width:90%;
+  display:flex;
+  justify-content: center; 
+  padding: 40px 0px 0px 0px;
+  background-color:white;
+  margin-left:40px;
+  margin-top:40px;
+  border-radius:38px;
+  overflow: auto;
+
 }
 .transaction_details{
   display:flex;
