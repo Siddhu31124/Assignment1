@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
-import AddModel from "./AddTranscation";
-export default function TrancationHeader() {
+import AddModel from "./AddModal";
+export default function TransactionHeader() {
   const [openModal, setOpenModal] = useState({
     delete: false,
     add: false,
@@ -22,8 +22,8 @@ export default function TrancationHeader() {
       />
       <nav>
         <div>
-          <h3 className="text-2xl font-bold">Transcation</h3>
-          <ul className="transationUl">
+          <h3 className="text-2xl font-bold">Transaction</h3>
+          <ul className="transaction_ul">
             <NavLink
               to="/transaction"
               end
@@ -49,7 +49,7 @@ export default function TrancationHeader() {
           className="bg-blue-700 text-white hover:bg-blue-800 p-2 text-xs font-medium rounded-lg"
           onClick={() => handelModel("add")}
         >
-          + Add Trancations
+          + Add Transactions
         </button>
       </nav>
     </>

@@ -7,18 +7,17 @@ import { MdDelete } from "react-icons/md";
 import dayjs from "dayjs";
 import { TailSpin } from "react-loader-spinner";
 import DeleteModal from "./DeleteModal";
-import AddModel from "./AddTranscation";
+import AddModel from "./AddModal";
 import { useState } from "react";
-export default function Trancation() {
+export default function Transaction() {
   const [selectedData, setSelectedData] = useState();
-  const [deleteId, setDeleteId] = useState("");
   const [openModal, setOpenModal] = useState({
     delete: false,
     add: false,
     edit: false,
   });
   const { data, isPending, isError, error } = useQuery({
-    queryKey: ["transcation", "all"],
+    queryKey: ["transaction", "all"],
     queryFn: fetchData,
   });
   function handelModel(item, data) {
@@ -31,7 +30,7 @@ export default function Trancation() {
     });
   }
   return (
-    <div className="transcationmain">
+    <div className="transaction_main">
       <DeleteModal
         isOpen={openModal.delete}
         handelFunction={handelModel}
@@ -44,7 +43,7 @@ export default function Trancation() {
         data={selectedData}
       />
       {isPending && (
-        <div className="Loder">
+        <div className="Loader">
           <TailSpin
             visible={true}
             height="80"
@@ -65,10 +64,10 @@ export default function Trancation() {
         </div>
       )}
       {data && (
-        <main className="transcationTable">
+        <main className="transaction_table">
           <table>
             <thead>
-              <tr className="transcationDetails">
+              <tr className="transaction_details">
                 <th>Transaction Name</th>
                 <th>Category</th>
                 <th>Date</th>
@@ -77,7 +76,7 @@ export default function Trancation() {
             </thead>
             <tbody>
               {data.transactions.map((eachItem) => (
-                <tr key={eachItem.id} className="transcationDetails">
+                <tr key={eachItem.id} className="transaction_details">
                   <td className="Arrow">
                     {eachItem.type === "credit" ? (
                       <CiCircleChevUp className="text-2xl text-green-600" />

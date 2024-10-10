@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 import { TailSpin } from "react-loader-spinner";
 import { useState } from "react";
 import DeleteModal from "./DeleteModal";
-import AddModel from "./AddTranscation";
+import AddModal from "./AddModal";
 export default function Credit() {
   const [selectedData, setSelectedData] = useState();
   const [openModal, setOpenModal] = useState({
@@ -16,7 +16,7 @@ export default function Credit() {
     edit: false,
   });
   const { data, isPending, isError } = useQuery({
-    queryKey: ["transcation", "credit"],
+    queryKey: ["transaction", "credit"],
     queryFn: fetchData,
   });
   let creditArray = [];
@@ -33,20 +33,20 @@ export default function Credit() {
     });
   }
   return (
-    <div className="transcationmain">
+    <div className="transaction_main">
       <DeleteModal
         isOpen={openModal.delete}
         handelFunction={handelModel}
         id={selectedData}
       />
-      <AddModel
+      <AddModal
         isOpen={openModal.edit}
         handelFunction={handelModel}
         type="edit"
         data={selectedData}
       />
       {isPending && (
-        <div className="Loder">
+        <div className="Loader">
           <TailSpin
             visible={true}
             height="80"
@@ -67,10 +67,10 @@ export default function Credit() {
         </div>
       )}
       {data && (
-        <main className="transcationTable">
+        <main className="transaction_table">
           <table>
             <thead>
-              <tr className="transcationDetails">
+              <tr className="transaction_details">
                 <th>Transaction Name</th>
                 <th>Category</th>
                 <th>Date</th>
@@ -79,7 +79,7 @@ export default function Credit() {
             </thead>
             <tbody>
               {creditArray.map((eachItem) => (
-                <tr key={eachItem.id} className="transcationDetails">
+                <tr key={eachItem.id} className="transaction_details">
                   <td className="Arrow">
                     <CiCircleChevUp className="text-2xl text-green-600" />
                     {eachItem.transaction_name}

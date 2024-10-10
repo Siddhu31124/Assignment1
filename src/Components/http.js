@@ -20,7 +20,7 @@ export async function fetchData(){
           });
         return res.data
         }
-export async function fetchlasttransaction(){
+export async function fetchLastTransaction(){
   let token_id=(JSON.parse(localStorage.getItem('token')))
     const res=await axios({
         method:"get",
@@ -40,7 +40,7 @@ export async function fetchlasttransaction(){
     })
     return res.data 
 }
-export async function fetchtotaltransaction(){
+export async function fetchTotalTransaction(){
   let token_id=(JSON.parse(localStorage.getItem('token')))
     const res=await axios({
         method:"get",
@@ -69,7 +69,7 @@ export const handleTransactionDelete = async ({id}) => {
               },
             });  
   };
-export async function handelAddTranscation({data}){
+export async function handelAddTransaction({data}){
   let token_id=(JSON.parse(localStorage.getItem('token')))
     const url =
     "https://bursting-gelding-24.hasura.app/api/rest/add-transaction";
@@ -89,7 +89,7 @@ export async function handelAddTranscation({data}){
 
    
 }
-export async function handelEditTranscation({data,id}){
+export async function handelEditTransaction({data,id}){
   let token_id=(JSON.parse(localStorage.getItem('token')))
     const url =
     "https://bursting-gelding-24.hasura.app/api/rest/update-transaction";
@@ -107,7 +107,7 @@ export async function handelEditTranscation({data,id}){
     }
   ); 
 }
-export async function LoginToken({data}){
+export async function loginToken({data}){
   const url =
     "https://bursting-gelding-24.hasura.app/api/rest/get-user-id";
 

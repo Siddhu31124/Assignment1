@@ -1,9 +1,9 @@
-import TrancationHeader from "../Components/TransactionHeader";
+import TransactionHeader from "../Components/TransactionHeader";
 import { Outlet } from "react-router";
-export default function TrancationrootPage() {
+export default function TransactionRootPage() {
   return (
-    <div className="transroot">
-      <TrancationHeader />
+    <div className="transaction_root">
+      <TransactionHeader />
       <Outlet />
     </div>
   );

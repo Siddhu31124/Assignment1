@@ -1,62 +1,69 @@
 import React from "react";
-import { LoginToken } from "./http";
+import { loginToken } from "./http";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
+import Input from "../utils/Input";
+import Loader from "./Loader";
 export default function Login() {
   const navigate = useNavigate();
-  const { mutate, data } = useMutation({
-    mutationFn: LoginToken,
+  const { mutate, isPending, isError } = useMutation({
+    mutationFn: loginToken,
     onSuccess: () => {
       navigate("/");
     },
   });
-  function handelLogin(event) {
-    event.preventDefault();
-    let data = new FormData(event.target);
-    let loginData = Object.fromEntries(data.entries());
-    mutate({ data: loginData });
-  }
-  const id = JSON.parse(localStorage.getItem("token"));
-
+  let id = localStorage.getItem("token");
   useEffect(() => {
     if (id) {
       navigate("/");
     }
   }, [id, navigate]);
 
+  function handelLogin(event) {
+    event.preventDefault();
+    let data = new FormData(event.target);
+    let loginData = Object.fromEntries(data.entries());
+    mutate({ data: loginData });
+  }
   return (
     <div className="login-container">
-      <div className="login-form">
-        <h1 className="login-title">Login</h1>
-        <form onSubmit={handelLogin}>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="text"
-              id="email"
-              className="form-input"
-              placeholder="Enter your email"
-              name="email"
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              className="form-input"
-              placeholder="Enter your password"
-              name="password"
-              required
-            />
-          </div>
-          <button type="submit" className="login-btn">
-            Login
-          </button>
-        </form>
-      </div>
+      {isPending && <Loader />}
+      {!isPending && (
+        <div className="login-form">
+          <h1 className="login-title">Login</h1>
+          <form onSubmit={handelLogin}>
+            <div className="form-group">
+              {isError && (
+                <p className="text-red-600">Please Enter Valid Details</p>
+              )}
+              <Input
+                label_name="Email"
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                className="form-input"
+                required
+              />
+            </div>
+            <div className="form-group">
+              <Input
+                label_name="Password"
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Transaction Name"
+                className="form-input"
+                required
+              />
+            </div>
+            <button type="submit" className="login-btn">
+              Login
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   );
 }

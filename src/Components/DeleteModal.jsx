@@ -1,4 +1,4 @@
-import Model from "../utils/Model";
+import Modal from "../utils/Modal";
 import { MdCancel } from "react-icons/md";
 import { handleTransactionDelete } from "../Components/http";
 import { useMutation } from "@tanstack/react-query";
@@ -12,10 +12,10 @@ export default function DeleteModal({ isOpen, handelFunction, id }) {
     mutationFn: handleTransactionDelete,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["transcation"],
+        queryKey: ["transaction"],
       });
       handelFunction("delete");
-      toast.success("Delete Sucessfully");
+      toast.success("Delete Successfully");
     },
   });
   function handelDelete(id) {
@@ -23,7 +23,7 @@ export default function DeleteModal({ isOpen, handelFunction, id }) {
   }
   return (
     <div>
-      <Model isOpen={isOpen} style="deleteModel modal p-5">
+      <Modal isOpen={isOpen} style="deleteModel modal p-5">
         {isPending && (
           <div className="pt-4 pl-56 mr-2">
             <TailSpin
@@ -56,7 +56,7 @@ export default function DeleteModal({ isOpen, handelFunction, id }) {
               </button>
             </div>
             <p className="text-gray-400 mb-2">
-              The Transcation is Deteted Immeditely It cannot be unde
+              The Transaction is Deleted Immeditely It cannot be undo
             </p>
             <p className="flex gap-4 mb-1">
               <button
@@ -74,7 +74,7 @@ export default function DeleteModal({ isOpen, handelFunction, id }) {
             </p>
           </div>
         )}
-      </Model>
+      </Modal>
     </div>
   );
 }

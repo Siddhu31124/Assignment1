@@ -1,6 +1,4 @@
-import Trancation from "../Components/Transcation";
-export default function TrancationPage(){
-    return(
-        <Trancation/>
-    )
+import Transaction from "../Components/Transaction";
+export default function TransactionPage() {
+  return <Transaction />;
 }

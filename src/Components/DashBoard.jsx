@@ -3,15 +3,16 @@ import { CiCircleChevDown } from "react-icons/ci";
 import { FaPencilAlt } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { useQuery } from "@tanstack/react-query";
-import { fetchlasttransaction } from "./http";
-import { fetchtotaltransaction } from "./http";
+import { fetchLastTransaction } from "./http";
+import { fetchTotalTransaction } from "./http";
 import { TailSpin } from "react-loader-spinner";
-import dayjs from "dayjs";
-import { useState } from "react";
-import DeleteModal from "./DeleteModal";
-import AddModel from "./AddTranscation";
 import { redirect } from "react-router";
-export default function Dashboard() {
+import { useState } from "react";
+import dayjs from "dayjs";
+import DeleteModal from "./DeleteModal";
+import AddModel from "./AddModal";
+import EditModel from "./EditModal";
+export default function DashBoard() {
   const [selectedData, setSelectedData] = useState();
   const [openModal, setOpenModal] = useState({
     delete: false,
@@ -19,32 +20,28 @@ export default function Dashboard() {
     edit: false,
   });
   const { data, isPending, isError } = useQuery({
-    queryKey: ["transcation", "lastThree"],
-    queryFn: fetchlasttransaction,
+    queryKey: ["transaction", "lastThree"],
+    queryFn: fetchLastTransaction,
   });
   const {
     data: totalData,
     isPending: totalPending,
     isError: totalError,
   } = useQuery({
-    queryKey: ["transcation"],
-    queryFn: fetchtotaltransaction,
+    queryKey: ["transaction"],
+    queryFn: fetchTotalTransaction,
   });
-  let id = JSON.parse(localStorage.getItem("token"));
-  if (!id) {
-    redirect("/login");
-  }
   function handelModel(item, data) {
     if (data) {
       setSelectedData(data);
     }
-    let identifier = item;
+    const identifier = item;
     setOpenModal((prevVal) => {
       return { ...prevVal, [identifier]: !prevVal[identifier] };
     });
   }
   return (
-    <div className="dashmain">
+    <div className="dash_main">
       <DeleteModal
         isOpen={openModal.delete}
         handelFunction={handelModel}
@@ -55,10 +52,10 @@ export default function Dashboard() {
         handelFunction={handelModel}
         type="add"
       />
-      <AddModel
+      <EditModel
         isOpen={openModal.edit}
-        handelFunction={handelModel}
         type="edit"
+        handelFunction={handelModel}
         data={selectedData}
       />
       <nav>
@@ -67,35 +64,45 @@ export default function Dashboard() {
           className="bg-blue-700 text-white hover:bg-blue-800 p-2 text-xs font-medium rounded-lg"
           onClick={() => handelModel("add")}
         >
-          + Add Trancations
+          + Add Transactions
         </button>
       </nav>
       <main className="p-8">
-        <div className="dashamount">
+        <div className="dash_amount">
           <div>
-            <p className="text-green-400 text-3xl font-bold">
-              {totalData && totalData.totals_credit_debit_transactions[0].sum}
-              {totalPending && <p className="text-xl">Loding...</p>}
+            <div className="text-green-400 text-3xl font-bold">
+              {(totalData &&
+                totalData.totals_credit_debit_transactions &&
+                totalData.totals_credit_debit_transactions[1] &&
+                totalData.totals_credit_debit_transactions[1].sum) ||
+                0}
+              {totalPending && <p className="text-xl">Loading...</p>}
               {totalError && (
                 <p className="text-red-500 text-xl ">Fail to Fetch Data</p>
               )}
               <br />
               <span className="text-base">Credit</span>
-            </p>
+            </div>
             <img src="Credit.png" />
           </div>
           <div>
-            <p className="text-red-500 text-3xl font-bold">
-              {totalData && totalData.totals_credit_debit_transactions[1].sum}
-              {totalPending && <p className="text-xl">Loding...</p>}
-              {totalError && <p className="text-xl">Fail to Fetch Data</p>}
+            <div className="text-red-500 text-3xl font-bold">
+              {(totalData &&
+                totalData.totals_credit_debit_transactions &&
+                totalData.totals_credit_debit_transactions[0] &&
+                totalData.totals_credit_debit_transactions[0].sum) ||
+                0}
+              {totalPending && <p className="text-xl">Loading...</p>}
+              {totalError && (
+                <p className="text-red-500 text-xl ">Fail to Fetch Data</p>
+              )}
               <br />
               <span className="text-base">Debit</span>
-            </p>
+            </div>
             <img src="Debit.png" />
           </div>
         </div>
-        <h3 className="mb-3 text-2xl font-bold">Last Transcations</h3>
+        <h3 className="mb-3 text-2xl font-bold">Last Transactions</h3>
         {isPending && (
           <div className="ml-96 pl-12 pt-28">
             <TailSpin
@@ -113,9 +120,9 @@ export default function Dashboard() {
         {isError && <p className="text-red-500 text-xl ">Fail to Fetch Data</p>}
         {data && (
           <div>
-            <ul className="transctionListContainer">
+            <ul className="transaction_list_container">
               {data.transactions.map((eachItems) => (
-                <li key={eachItems.id} className="dash-last-transcation">
+                <li key={eachItems.id} className="dash-last-transaction">
                   <p className="Arrow">
                     {eachItems.type === "credit" ? (
                       <CiCircleChevUp className="text-2xl text-green-600" />

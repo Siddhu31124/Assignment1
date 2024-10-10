@@ -4,7 +4,7 @@ import { GrTransaction } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
 export default function Sidebar() {
   const navigate = useNavigate();
-  function handelLoqout() {
+  function handelLogout() {
     localStorage.removeItem("token");
     navigate("/login");
   }
@@ -15,7 +15,7 @@ export default function Sidebar() {
         <ul>
           <NavLink
             to="/"
-            className={({ isActive }) => (isActive ? "text-blue-600" : "")}
+            className={({ isActive }) => (isActive ? "active" : "")}
           >
             <li className="font-bold flex items-center">
               <IoHome className="mr-2" />
@@ -24,7 +24,7 @@ export default function Sidebar() {
           </NavLink>
           <NavLink
             to="/transaction"
-            className={({ isActive }) => (isActive ? "text-blue-600" : "")}
+            className={({ isActive }) => (isActive ? "active" : "")}
           >
             <li className="font-bold flex items-center">
               <GrTransaction className="mr-2" />
@@ -35,7 +35,7 @@ export default function Sidebar() {
       </div>
       <div>
         <button
-          onClick={handelLoqout}
+          onClick={handelLogout}
           className="bg-blue-700 text-white hover:bg-blue-800 p-2 text-xs font-medium rounded-lg"
         >
           Logout

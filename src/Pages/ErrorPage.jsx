@@ -1,5 +1,3 @@
-export default function(){
-    return(
-        <h1>Error</h1>
-    )
+export default function ErrorPage() {
+  return <h1>Error</h1>;
 }
