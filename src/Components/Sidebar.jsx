@@ -1,10 +1,11 @@
 import { NavLink } from "react-router-dom";
 import { IoHome } from "react-icons/io5";
 import { GrTransaction } from "react-icons/gr";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 export default function Sidebar() {
   const navigate = useNavigate();
-  const path = window.location.pathname;
+  const location = useLocation();
+  const path = location.pathname;
   function handelLogout() {
     localStorage.removeItem("token");
     navigate("/login");

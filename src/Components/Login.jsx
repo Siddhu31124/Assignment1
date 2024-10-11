@@ -34,9 +34,6 @@ export default function Login() {
           <h1 className="login-title">Login</h1>
           <form onSubmit={handelLogin}>
             <div className="form-group">
-              {isError && (
-                <p className="text-red-600">Please Enter Valid Details</p>
-              )}
               <Input
                 label_name="Email"
                 type="email"
@@ -58,6 +55,9 @@ export default function Login() {
                 required
               />
             </div>
+            {isError && (
+              <p className="text-red-600 mb-2">Please Enter Valid Details</p>
+            )}
             <button type="submit" className="login-btn">
               Login
             </button>

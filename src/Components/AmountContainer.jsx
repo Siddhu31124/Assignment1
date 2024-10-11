@@ -11,8 +11,8 @@ export default function AmountContainer() {
   });
   return (
     <div className="dash_amount">
-      <div>
-        <div className="text-green-400 text-3xl font-bold">
+      <div className="text-green-400 text-3xl font-bold">
+        <div className="flex flex-col gap-1">
           {(totalData &&
             totalData.totals_credit_debit_transactions &&
             totalData.totals_credit_debit_transactions[1] &&
@@ -22,13 +22,12 @@ export default function AmountContainer() {
           {totalError && (
             <p className="text-red-500 text-xl ">Fail to Fetch Data</p>
           )}
-          <br />
-          <span className="text-base">Credit</span>
+          <p className="text-base">Credit</p>
         </div>
         <img src="Credit.png" />
       </div>
-      <div>
-        <div className="text-red-500 text-3xl font-bold">
+      <div className="text-red-500 text-3xl font-bold">
+        <div className="flex flex-col gap-1">
           {(totalData &&
             totalData.totals_credit_debit_transactions &&
             totalData.totals_credit_debit_transactions[0] &&
@@ -38,8 +37,7 @@ export default function AmountContainer() {
           {totalError && (
             <p className="text-red-500 text-xl ">Fail to Fetch Data</p>
           )}
-          <br />
-          <span className="text-base">Debit</span>
+          <p className="text-base">Debit</p>
         </div>
         <img src="Debit.png" />
       </div>

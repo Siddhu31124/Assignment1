@@ -7,7 +7,6 @@ import TableRow from "../utils/TableData";
 import Loader from "../utils/Loader";
 import EditModal from "./EditModal";
 import { TableHead } from "../utils/TableData";
-import OpenModal from "../utils/OpenModal";
 export default function Transaction() {
   const [selectedData, setSelectedData] = useState();
   const [openModal, setOpenModal] = useState({
@@ -28,7 +27,6 @@ export default function Transaction() {
       return { ...prevVal, [identifier]: !prevVal[identifier] };
     });
   }
-  console.log(openModal);
   return (
     <div className="transaction_main">
       <DeleteModal

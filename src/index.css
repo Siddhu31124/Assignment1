@@ -52,7 +52,7 @@ nav{
   position:absolute;
   background-color:blue;
   width:8px;
-  height:28px;
+  height:30px;
   color:blue;
   left:0px;
   top:100px;
@@ -64,12 +64,51 @@ nav{
   position:absolute;
   background-color:blue;
   width:8px;
-  height:28px;
+  height:30px;
   color:blue;
   left:0px;
   top:138px;
   border-top-right-radius:16px;
   border-bottom-right-radius:16px;
+  transition:all 0.3s 0s ease;
+
+}
+.active_indicator_all{
+  position:absolute;
+  background-color:blue;
+  width:125px;
+  height:8px;
+  color:blue;
+  top:94px;
+  left:292px;
+  border-top-left-radius:16px;
+  border-top-right-radius:16px;
+  transition:all 0.3s 0s ease;
+
+}
+.active_indicator_credit{
+  position:absolute;
+  background-color:blue;
+  width:60px;
+  height:8px;
+  color:blue;
+  top:94px;
+  left:438px;
+  border-top-left-radius:16px;
+  border-top-right-radius:16px;
+  transition:all 0.3s 0s ease;
+
+}
+.active_indicator_debit{
+  position:absolute;
+  background-color:blue;
+  width:50px;
+  height:8px;
+  color:blue;
+  left:520px;
+  top:94px;
+  border-top-right-radius:16px;
+  border-top-left-radius:16px;
   transition:all 0.3s 0s ease;
 
 }
@@ -110,7 +149,7 @@ nav{
 }
 .transaction_ul{
   display:flex;
-  gap:1rem;
+  gap:2rem;
   margin-top:4px;
 }
 .transaction_main{
