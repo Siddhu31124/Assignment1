@@ -4,8 +4,8 @@ import { handleTransactionDelete } from "../Components/http";
 import { useMutation } from "@tanstack/react-query";
 import { CiWarning } from "react-icons/ci";
 import { queryClient } from "../Components/http";
+import { DeleteLoader } from "../utils/Loader";
 import toast from "react-hot-toast";
-import { TailSpin } from "react-loader-spinner";
 export default function DeleteModal({ isOpen, handelFunction, id }) {
   const { mutate, isPending } = useMutation({
     mutationKey: ["deleteFn"],
@@ -24,20 +24,7 @@ export default function DeleteModal({ isOpen, handelFunction, id }) {
   return (
     <div>
       <Modal isOpen={isOpen} style="deleteModel modal p-5">
-        {isPending && (
-          <div className="pt-4 pl-56 mr-2">
-            <TailSpin
-              visible={true}
-              height="50"
-              width="50"
-              color="blue"
-              ariaLabel="tail-spin-loading"
-              radius="1"
-              wrapperStyle={{}}
-              wrapperClass=""
-            />
-          </div>
-        )}
+        {isPending && <DeleteLoader />}
         {!isPending && (
           <div>
             <div className="flex justify-between mb-2">

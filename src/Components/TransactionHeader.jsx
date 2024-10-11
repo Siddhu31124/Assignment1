@@ -1,22 +1,13 @@
 import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
 import AddModal from "./AddModal";
+import { useContext } from "react";
+import { ModalContext } from "../store/ModalContext";
 export default function TransactionHeader() {
+  const context = useContext(ModalContext);
   const location = useLocation();
-  const [openModal, setOpenModal] = useState({
-    delete: false,
-    add: false,
-    edit: false,
-  });
   const path = location.pathname;
   let style;
-  function handelModel(item) {
-    let identifier = item;
-    setOpenModal((prevVal) => {
-      return { ...prevVal, [identifier]: !prevVal[identifier] };
-    });
-  }
   if (path === "/transaction") {
     style = "active_indicator_all";
   } else if (path === "/transaction/credit") {
@@ -24,12 +15,11 @@ export default function TransactionHeader() {
   } else {
     style = "active_indicator_debit";
   }
-  console.log(style);
   return (
     <>
       <AddModal
-        isOpen={openModal.add}
-        handelFunction={handelModel}
+        isOpen={context.openModal.add}
+        handelFunction={context.handelModel}
         type="add"
       />
       <div className={style}></div>
@@ -60,7 +50,7 @@ export default function TransactionHeader() {
         </div>
         <button
           className="bg-blue-700 text-white hover:bg-blue-800 p-2 text-xs font-medium rounded-lg"
-          onClick={() => handelModel("add")}
+          onClick={() => context.handelModel("add")}
         >
           + Add Transactions
         </button>

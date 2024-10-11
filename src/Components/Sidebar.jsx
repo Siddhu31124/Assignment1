@@ -1,15 +1,13 @@
 import { NavLink } from "react-router-dom";
 import { IoHome } from "react-icons/io5";
 import { GrTransaction } from "react-icons/gr";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { useContext } from "react";
+import { ModalContext } from "../store/ModalContext";
 export default function Sidebar() {
-  const navigate = useNavigate();
+  const context = useContext(ModalContext);
   const location = useLocation();
   const path = location.pathname;
-  function handelLogout() {
-    localStorage.removeItem("token");
-    navigate("/login");
-  }
   return (
     <aside className="sidebar">
       {path === "/" ? (
@@ -42,7 +40,7 @@ export default function Sidebar() {
       </div>
       <div>
         <button
-          onClick={handelLogout}
+          onClick={() => context.handelModel("logout")}
           className="bg-blue-700 text-white hover:bg-blue-800 p-2 text-xs font-medium rounded-lg"
         >
           Logout
