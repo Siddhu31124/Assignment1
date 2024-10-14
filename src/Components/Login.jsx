@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import { useEffect } from "react";
 import Input from "../utils/Input";
 import Loader from "../utils/Loader";
+
 export default function Login() {
   const navigate = useNavigate();
   const { mutate, isPending, isError } = useMutation({
@@ -13,7 +14,9 @@ export default function Login() {
       navigate("/");
     },
   });
+
   let id = localStorage.getItem("token");
+
   useEffect(() => {
     if (id) {
       navigate("/");
@@ -26,6 +29,7 @@ export default function Login() {
     let loginData = Object.fromEntries(data.entries());
     mutate({ data: loginData });
   }
+  
   return (
     <div className="login-container">
       {isPending && <Loader />}

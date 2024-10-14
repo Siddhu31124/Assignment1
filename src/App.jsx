@@ -11,6 +11,10 @@ import LoginPage from "./Pages/LoginPage";
 import { Toaster } from "react-hot-toast";
 import { queryClient } from "./Components/http";
 import { ModalContextComponent } from "./store/ModalContext";
+
+//Organize the import order
+//Extract magic numbers & strings into constants
+//Seperate out the browser router code
 function App() {
   const router = createBrowserRouter([
     { path: "/login", element: <LoginPage /> },
@@ -32,6 +36,7 @@ function App() {
       ],
     },
   ]);
+
   return (
     <ModalContextComponent>
       <QueryClientProvider client={queryClient}>
