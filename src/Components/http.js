@@ -9,7 +9,7 @@ import
   DeleteTransactionApi,
   AddTransactionApi,
   UpdateTransactionApi,
-  LoginApi,LocalAdmin} from "../Constants";
+  LoginApi,LocalAdmin,ProfileApi} from "../Constants";
 
 export const queryClient = new QueryClient();
 
@@ -127,10 +127,23 @@ export async function loginToken({data,admin}){
     }
   );
   if(res.status === 200){
-    localStorage.setItem("token", JSON.stringify(res.data.get_user_id[0].id));
+    localStorage.setItem(LocalToken, JSON.stringify(res.data.get_user_id[0].id));
     if(admin){
-      localStorage.setItem("admin",admin)
+      localStorage.setItem(LocalAdmin,admin)
     }
   }
-  
+
+}
+export const fetchUserProfile = async () => {
+  let token_id=(JSON.parse(localStorage.getItem(LocalToken)))
+  console.log('data');
+    const url = ProfileApi;
+    const res = await axios.get(url, {
+      headers: {
+        "x-hasura-admin-secret": Secret,
+        "x-hasura-role": Role,
+        "x-hasura-user-id": token_id,
+      },
+});
+return res.data.users[0]
 }

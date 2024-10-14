@@ -15,11 +15,15 @@
   width:18%;
   height:100vh;
   border-right:1px solid rgb(182, 182, 182);
-  padding:28px 40px;
+  padding:28px 0px 0px 0px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  /* align-items: center; */
+}
+img{
+  height:30%;
+  width:50%;
 }
 .sidebar ul{
   list-style:none;
@@ -306,9 +310,14 @@ input,select{
   padding:6px;
   border-radius:8px;
 }
+.profile{
+  border-top:1px solid rgb(114, 114, 114);
+  padding:20px;
+}
 
 .modal::backdrop {
-  background-color: rgba(81, 100, 114, 0.874);
+  background-color: rgba(83, 102, 116, 0.673);
+  backdrop-filter:blur(2px);
 }
 @keyframes fade-slide-up {
   from {

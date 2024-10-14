@@ -103,6 +103,7 @@ export default function EditModal({ isOpen, type, handelFunction, data }) {
             <option value="Transfer">Transfer</option>
             <option value="Service">Service</option>
             <option value="Rent">Rent</option>
+            <option value="food">food</option>
           </select>
         </div>
         <Input

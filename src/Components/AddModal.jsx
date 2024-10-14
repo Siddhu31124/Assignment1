@@ -1,12 +1,12 @@
-import { MdCancel } from "react-icons/md";
 import { useMutation } from "@tanstack/react-query";
+import { MdCancel } from "react-icons/md";
 import toast from "react-hot-toast";
 import { handelAddTransaction } from "./http";
 import { queryClient } from "./http";
-import { QueryKey } from "../Constants";
 import Loader from "../utils/Loader";
 import Modal from "../utils/Modal";
 import Input from "../utils/Input";
+import { QueryKey } from "../Constants";
 
 export default function AddModal({ isOpen, type, handelFunction, data }) {
   let mutateFun = handelAddTransaction;
@@ -38,9 +38,12 @@ export default function AddModal({ isOpen, type, handelFunction, data }) {
 
   return (
     <Modal isOpen={isOpen} style="InputModal modal p-5">
-      <form className="p-6 flex flex-col gap-4" onSubmit={handelAddData}>
+      <form
+        className="p-6 flex flex-col gap-4 text-gray-500 font-normal"
+        onSubmit={handelAddData}
+      >
         <div className="flex justify-between">
-          <h3 className="font-bold text-2xl">Add Transaction</h3>
+          <h3 className="font-bold text-2xl text-black">Add Transaction</h3>
 
           <button
             type="button"
@@ -52,13 +55,13 @@ export default function AddModal({ isOpen, type, handelFunction, data }) {
         </div>
         <p>Fill The Transaction Details</p>
         <Input
-          label_name="Transaction Name"
+          label_name="Enter Name"
           type="text"
           id="transactionName"
           name="name"
           placeholder="Transaction Name"
         />
-        <div className=" flex flex-col gap-1">
+        <div className=" flex flex-col gap-1 font-normal">
           <label htmlFor="type">Transaction Type</label>
           <select id="type" name="type" required>
             <option value="">Select Transaction Type</option>
@@ -74,6 +77,7 @@ export default function AddModal({ isOpen, type, handelFunction, data }) {
             <option value="Transfer">Transfer</option>
             <option value="Service">Service</option>
             <option value="Rent">Rent</option>
+            <option value="Food">food</option>
           </select>
         </div>
         <Input

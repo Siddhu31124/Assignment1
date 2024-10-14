@@ -1,4 +1,14 @@
 import { ErrorPageMessage } from "../Constants";
 export default function ErrorPage() {
-  return <h1 className="mt-10 align-middle text-black">{ErrorPageMessage}</h1>;
+  return (
+    <div className="flex flex-col gap-8 content-center items-center">
+      <h1 className="mt-10 align-middle text-black text-2xl">
+        {ErrorPageMessage}
+      </h1>
+      <img
+        src="https://indexsy.com/wp-content/uploads/2023/05/What-is-404-error.jpg"
+        alt="errorPage"
+      />
+    </div>
+  );
 }
