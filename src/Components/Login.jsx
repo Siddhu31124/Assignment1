@@ -6,18 +6,23 @@ import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import Input from "../utils/Input";
 import Loader from "../utils/Loader";
-import { initialRoute, localToken } from "../Constants";
+import {
+  InitialRoute,
+  LocalToken,
+  AdminLoginRoute,
+  LoginError,
+} from "../Constants";
 
 export default function Login() {
   const navigate = useNavigate();
   const { mutate, isPending, isError } = useMutation({
     mutationFn: loginToken,
     onSuccess: () => {
-      navigate(initialRoute);
+      navigate(InitialRoute);
     },
   });
 
-  let id = localStorage.getItem(localToken);
+  let id = localStorage.getItem(LocalToken);
 
   function handelLogin(event) {
     event.preventDefault();
@@ -28,7 +33,7 @@ export default function Login() {
   }
 
   if (id) {
-    return <Navigate to={initialRoute} replace />;
+    return <Navigate to={InitialRoute} replace />;
   }
 
   if (isPending) {
@@ -66,14 +71,14 @@ export default function Login() {
               required
             />
           </div>
-          {isError && <p className="text-red-600 mb-2">{loginError}</p>}
+          {isError && <p className="text-red-600 mb-2">{LoginError}</p>}
           <button type="submit" className="login-btn">
             Login
           </button>
         </form>
-        <Link to="/login">
+        <Link to={AdminLoginRoute}>
           <p className="mt-2">
-            Login as <span className="text-blue-500">User ?</span>
+            Login as <span className="text-blue-500">Admin ?</span>
           </p>
         </Link>
       </div>

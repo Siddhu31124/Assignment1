@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { handelAddTransaction } from "./http";
 import { queryClient } from "./http";
-import { queryKey } from "../Constants";
+import { QueryKey } from "../Constants";
 import Loader from "../utils/Loader";
 import Modal from "../utils/Modal";
 import Input from "../utils/Input";
@@ -14,7 +14,7 @@ export default function AddModal({ isOpen, type, handelFunction, data }) {
     mutationFn: mutateFun,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [queryKey],
+        queryKey: [QueryKey],
       });
       handelFunction(type);
       toast.success("Added Successfully");
@@ -35,6 +35,7 @@ export default function AddModal({ isOpen, type, handelFunction, data }) {
       </Modal>
     );
   }
+
   return (
     <Modal isOpen={isOpen} style="InputModal modal p-5">
       <form className="p-6 flex flex-col gap-4" onSubmit={handelAddData}>

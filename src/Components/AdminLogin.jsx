@@ -7,10 +7,11 @@ import { loginToken } from "./http";
 import Input from "../utils/Input";
 import Loader from "../utils/Loader";
 import {
-  initialRoute,
-  localToken,
-  localUserDetails,
-  loginError,
+  InitialRoute,
+  LocalToken,
+  LocalUserDetails,
+  LoginRoute,
+  LoginError,
 } from "../Constants";
 
 export default function AdminLogin({ admin }) {
@@ -18,22 +19,22 @@ export default function AdminLogin({ admin }) {
   const { mutate, isPending, isError } = useMutation({
     mutationFn: loginToken,
     onSuccess: () => {
-      navigate(initialRoute);
+      navigate(InitialRoute);
     },
   });
 
-  let id = localStorage.getItem(localToken);
+  let id = localStorage.getItem(LocalToken);
 
   function handelLogin(event) {
     event.preventDefault();
     let data = new FormData(event.target);
     let loginData = Object.fromEntries(data.entries());
     mutate({ data: loginData, admin: admin });
-    localStorage.setItem(localUserDetails, loginData.email);
+    localStorage.setItem(LocalUserDetails, loginData.email);
   }
 
   if (id) {
-    return <Navigate to={initialRoute} replace />;
+    return <Navigate to={InitialRoute} replace />;
   }
 
   if (isPending) {
@@ -71,12 +72,12 @@ export default function AdminLogin({ admin }) {
               required
             />
           </div>
-          {isError && <p className="text-red-600 mb-2">{loginError}</p>}
+          {isError && <p className="text-red-600 mb-2">{LoginError}</p>}
           <button type="submit" className="login-btn">
             Login
           </button>
         </form>
-        <Link to="/login">
+        <Link to={LoginRoute}>
           <p className="mt-2">
             Login as <span className="text-blue-500">User ?</span>
           </p>

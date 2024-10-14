@@ -4,22 +4,22 @@ import { MdCancel } from "react-icons/md";
 import { CiWarning } from "react-icons/ci";
 import { useNavigate } from "react-router";
 import {
-  localToken,
-  localAdmin,
-  localUserDetails,
-  loginRoute,
+  LocalToken,
+  LocalAdmin,
+  LocalUserDetails,
+  LoginRoute,
 } from "../Constants";
 
 export default function LogoutModal({ isOpen, handelFunction }) {
   const navigate = useNavigate();
   function handelLogOut() {
-    localStorage.removeItem(localToken);
-    localStorage.removeItem(localAdmin);
-    let admin = localStorage.getItem(localUserDetails);
+    localStorage.removeItem(LocalToken);
+    localStorage.removeItem(LocalAdmin);
+    let admin = localStorage.getItem(LocalUserDetails);
     if (admin) {
       localStorage.removeItem("admin");
     }
-    navigate(loginRoute);
+    navigate(LoginRoute);
     handelFunction("logout");
     toast.success("Logout Successfully");
   }

@@ -6,12 +6,12 @@ import AmountContainer from "./AmountContainer";
 import TableRow from "../utils/TableData";
 import ModalLayout from "../utils/ModelLayout";
 import { ModalContext } from "../store/ModalContext";
-import { failError, queryKey } from "../Constants";
+import { FailError, QueryKey } from "../Constants";
 
 export default function DashBoard() {
   const context = useContext(ModalContext);
   const { data, isPending, isError } = useQuery({
-    queryKey: [queryKey, "lastThree"],
+    queryKey: [QueryKey, "lastThree"],
     queryFn: fetchLastTransaction,
   });
 
@@ -29,7 +29,7 @@ export default function DashBoard() {
   }
 
   if (isError) {
-    content = <p className="text-red-500 text-xl ">{failError}</p>;
+    content = <p className="text-red-500 text-xl ">{FailError}</p>;
   }
 
   return (

@@ -8,7 +8,7 @@ import Input from "../utils/Input";
 import { handelEditTransaction } from "./http";
 import { queryClient } from "./http";
 import Loader from "../utils/Loader";
-import { queryKey } from "../Constants";
+import { QueryKey } from "../Constants";
 
 export default function EditModal({ isOpen, type, handelFunction, data }) {
   const [inputValues, setInputValues] = useState(data);
@@ -20,7 +20,7 @@ export default function EditModal({ isOpen, type, handelFunction, data }) {
     mutationFn: mutateFun,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [queryKey],
+        queryKey: [QueryKey],
       });
       handelFunction(type);
       toast.success(`Updated Successfully`);

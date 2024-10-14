@@ -6,12 +6,12 @@ import Loader from "../utils/Loader";
 import { TableHead } from "../utils/TableData";
 import ModalLayout from "../utils/ModelLayout";
 import { ModalContext } from "../store/ModalContext";
-import { queryKey, failError } from "../Constants";
+import { QueryKey, FailError } from "../Constants";
 
 export default function Transaction() {
   const context = useContext(ModalContext);
   const { data, isPending, isError } = useQuery({
-    queryKey: [queryKey, "all"],
+    queryKey: [QueryKey, "all"],
     queryFn: fetchData,
   });
   let content;
@@ -29,7 +29,7 @@ export default function Transaction() {
   if (isError) {
     content = (
       <div className="errorMessage">
-        <h1 className="text-3xl font-bold text-red-600">{failError}</h1>
+        <h1 className="text-3xl font-bold text-red-600">{FailError}</h1>
       </div>
     );
   }

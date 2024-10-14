@@ -9,24 +9,24 @@ import ErrorPage from "../Pages/ErrorPage";
 import LoginPage from "../Pages/LoginPage";
 import AdminLoginPage from "../Pages/AdminLoginPage";
 import {
-  transactionRoute,
-  loginRoute,
-  adminLoginRoute,
-  initialRoute,
+  TransactionRoute,
+  LoginRoute,
+  AdminLoginRoute,
+  InitialRoute,
 } from "../Constants";
 
 export function routersPath() {
   return createBrowserRouter([
-    { path: loginRoute, element: <LoginPage /> },
-    { path: adminLoginRoute, element: <AdminLoginPage /> },
+    { path: LoginRoute, element: <LoginPage /> },
+    { path: AdminLoginRoute, element: <AdminLoginPage /> },
     {
-      path: initialRoute,
+      path: InitialRoute,
       element: <RootPage />,
       errorElement: <ErrorPage />,
       children: [
         { index: true, element: <DashBoardPage /> },
         {
-          path: transactionRoute,
+          path: TransactionRoute,
           element: <TransactionRootPage />,
           children: [
             { index: true, element: <TransactionPage /> },
