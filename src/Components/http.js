@@ -107,7 +107,8 @@ export async function handelEditTransaction({data,id}){
     }
   ); 
 }
-export async function loginToken({data}){
+export async function loginToken({data,admin}){
+  console.log(admin,data)
   const url =
     "https://bursting-gelding-24.hasura.app/api/rest/get-user-id";
 
@@ -121,6 +122,9 @@ export async function loginToken({data}){
   );
   if(res.status === 200){
     localStorage.setItem("token", JSON.stringify(res.data.get_user_id[0].id));
+    if(admin){
+      localStorage.setItem("admin",admin)
+    }
   }
   
 }

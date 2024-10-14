@@ -6,6 +6,7 @@ import { handelAddTransaction } from "./http";
 import { queryClient } from "./http";
 import toast from "react-hot-toast";
 import { TailSpin } from "react-loader-spinner";
+import Loader from "../utils/Loader";
 export default function AddModal({ isOpen, type, handelFunction, data }) {
   let mutateFun = handelAddTransaction;
   const { mutate, isPending } = useMutation({
@@ -27,21 +28,9 @@ export default function AddModal({ isOpen, type, handelFunction, data }) {
   return (
     <div>
       <Modal isOpen={isOpen} style="InputModal modal p-5">
-        {isPending && (
-          <div className="Loader">
-            <TailSpin
-              visible={true}
-              height="80"
-              width="80"
-              color="blue"
-              ariaLabel="tail-spin-loading"
-              radius="1"
-              wrapperStyle={{}}
-              wrapperClass=""
-            />
-          </div>
-        )}
-        {!isPending && (
+        {isPending ? (
+          <Loader />
+        ) : (
           <form className="p-6 flex flex-col gap-4" onSubmit={handelAddData}>
             <div className="flex justify-between">
               <h3 className="font-bold text-2xl">Add Transaction</h3>

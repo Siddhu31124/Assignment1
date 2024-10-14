@@ -8,12 +8,14 @@ import CreditPage from "./Pages/CreditPage";
 import DebitPage from "./Pages/DebitPage";
 import ErrorPage from "./Pages/ErrorPage";
 import LoginPage from "./Pages/LoginPage";
+import AdminLoginPage from "./Pages/AdminLoginPage";
 import { Toaster } from "react-hot-toast";
 import { queryClient } from "./Components/http";
 import { ModalContextComponent } from "./store/ModalContext";
 function App() {
   const router = createBrowserRouter([
     { path: "/login", element: <LoginPage /> },
+    { path: "/admin/login", element: <AdminLoginPage /> },
     {
       path: "/",
       element: <RootPage />,

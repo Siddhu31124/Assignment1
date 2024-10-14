@@ -6,7 +6,7 @@ import Input from "../utils/Input";
 import Loader from "../utils/Loader";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-export default function Login() {
+export default function AdminLogin({ admin }) {
   const navigate = useNavigate();
   const { mutate, isPending, isError } = useMutation({
     mutationFn: loginToken,
@@ -19,7 +19,7 @@ export default function Login() {
     event.preventDefault();
     let data = new FormData(event.target);
     let loginData = Object.fromEntries(data.entries());
-    mutate({ data: loginData });
+    mutate({ data: loginData, admin: admin });
     localStorage.setItem("userDetails", loginData.email);
   }
   return (
@@ -65,9 +65,9 @@ export default function Login() {
                   Login
                 </button>
               </form>
-              <Link to="/admin/login">
+              <Link to="/login">
                 <p className="mt-2">
-                  Login as <span className="text-blue-500">Admin ?</span>
+                  Login as <span className="text-blue-500">User ?</span>
                 </p>
               </Link>
             </div>

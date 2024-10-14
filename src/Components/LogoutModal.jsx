@@ -10,6 +10,11 @@ export default function LogoutModal({ isOpen, handelFunction }) {
   const navigate = useNavigate();
   function handelLogOut() {
     localStorage.removeItem("token");
+    localStorage.removeItem("userDetails");
+    let admin = localStorage.getItem("admin");
+    if (admin) {
+      localStorage.removeItem("admin");
+    }
     navigate("/login");
     handelFunction("logout");
     toast.success("Logout Successfully");

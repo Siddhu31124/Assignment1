@@ -8,6 +8,7 @@ export default function Sidebar() {
   const context = useContext(ModalContext);
   const location = useLocation();
   const path = location.pathname;
+  const isAdmin = localStorage.getItem("admin");
   return (
     <aside className="sidebar">
       {path === "/" ? (
@@ -33,7 +34,7 @@ export default function Sidebar() {
           >
             <li className="font-bold flex items-center">
               <GrTransaction className="mr-2" />
-              Transaction
+              {isAdmin ? "All Transaction" : "Transaction"}
             </li>
           </NavLink>
         </ul>
