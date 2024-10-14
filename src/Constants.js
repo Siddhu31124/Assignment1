@@ -1,0 +1,11 @@
+export const initialRoute='/'
+export const loginRoute='/login'
+export const adminLoginRoute='/admin/login'
+export const transactionRoute='/transaction'
+export const errorPageMessage="The page Is Not found Enter Valid url"
+export const queryKey="transaction"
+export const localToken="token"
+export const localUserDetails='userDetails'
+export const localAdmin='admin'
+export const loginError="Please Enter Valid Details"
+export const failError="Fail to Fetch Data"

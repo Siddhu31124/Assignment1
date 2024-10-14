@@ -4,11 +4,14 @@ import { GrTransaction } from "react-icons/gr";
 import { useLocation } from "react-router-dom";
 import { useContext } from "react";
 import { ModalContext } from "../store/ModalContext";
+import { IoIosLogOut } from "react-icons/io";
 export default function Sidebar() {
   const context = useContext(ModalContext);
   const location = useLocation();
   const path = location.pathname;
   const isAdmin = localStorage.getItem("admin");
+  const email = localStorage.getItem("userDetails");
+  const name = email.split("@")[0];
   return (
     <aside className="sidebar">
       {path === "/" ? (
@@ -39,13 +42,15 @@ export default function Sidebar() {
           </NavLink>
         </ul>
       </div>
-      <div>
-        <button
-          onClick={() => context.handelModel("logout")}
-          className="bg-blue-700 text-white hover:bg-blue-800 p-2 text-xs font-medium rounded-lg"
-        >
-          Logout
-        </button>
+
+      <div className="flex flex-col content-between">
+        <div className="flex gap-20 items-center">
+          <p>{name.toUpperCase()}</p>
+          <button onClick={() => context.handelModel("logout")}>
+            <IoIosLogOut className="font-bolder text-gray-400 text-2xl" />
+          </button>
+        </div>
+        <p className="text-blue-600 font-light">{email}</p>
       </div>
     </aside>
   );

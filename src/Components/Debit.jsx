@@ -6,16 +6,44 @@ import ModalLayout from "../utils/ModelLayout";
 import { TableHead } from "../utils/TableData";
 import { ModalContext } from "../store/ModalContext";
 import { useContext } from "react";
+import { failError, queryKey } from "../Constants";
+
 export default function Debit() {
   const context = useContext(ModalContext);
   const { data, isPending, isError, error } = useQuery({
-    queryKey: ["transaction", "debit"],
+    queryKey: [queryKey, "debit"],
     queryFn: fetchData,
   });
-  let debitArray = [];
+
+  let debitArray;
+  let content;
   if (data) {
     debitArray = data.transactions.filter((each) => each.type === "debit");
+    content = (
+      <main className="transaction_table">
+        <table>
+          <TableHead />
+          <TableRow
+            data={{ transactions: debitArray }}
+            handelModel={context.handelModel}
+          />
+        </table>
+      </main>
+    );
   }
+
+  if (isError) {
+    content = (
+      <div className="errorMessage">
+        <h1 className="text-3xl font-bold text-red-600">{failError}</h1>
+      </div>
+    );
+  }
+
+  if (isPending) {
+    content = <Loader />;
+  }
+
   return (
     <div className="transaction_main">
       <ModalLayout
@@ -23,25 +51,7 @@ export default function Debit() {
         selectedData={context.selectedData}
         handelModel={context.handelModel}
       />
-      {isPending && <Loader />}
-      {isError && (
-        <div className="errorMessage">
-          <h1 className="text-3xl font-bold text-red-600">
-            Failed To Fetch Data
-          </h1>
-        </div>
-      )}
-      {data && (
-        <main className="transaction_table">
-          <table>
-            <TableHead />
-            <TableRow
-              data={{ transactions: debitArray }}
-              handelModel={context.handelModel}
-            />
-          </table>
-        </main>
-      )}
+      {content}
     </div>
   );
 }

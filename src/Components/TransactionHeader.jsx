@@ -7,6 +7,7 @@ export default function TransactionHeader() {
   const context = useContext(ModalContext);
   const location = useLocation();
   const path = location.pathname;
+  const isActivePathStyle = ({ isActive }) => (isActive ? "text-blue-500" : "");
   let style;
   if (path === "/transaction") {
     style = "active_indicator_all";
@@ -27,23 +28,13 @@ export default function TransactionHeader() {
         <div>
           <h3 className="text-2xl font-bold">Transactions</h3>
           <ul className="transaction_ul">
-            <NavLink
-              to="/transaction"
-              end
-              className={({ isActive }) => (isActive ? "text-blue-500" : "")}
-            >
+            <NavLink to="/transaction" end className={isActivePathStyle}>
               <li>All Transaction</li>
             </NavLink>
-            <NavLink
-              to="/transaction/credit"
-              className={({ isActive }) => (isActive ? "text-blue-500" : "")}
-            >
+            <NavLink to="/transaction/credit" className={isActivePathStyle}>
               <li>Credit</li>
             </NavLink>
-            <NavLink
-              to="/transaction/debit"
-              className={({ isActive }) => (isActive ? "text-blue-500" : "")}
-            >
+            <NavLink to="/transaction/debit" className={isActivePathStyle}>
               <li>Debit</li>
             </NavLink>
           </ul>

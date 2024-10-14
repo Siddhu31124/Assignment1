@@ -1,20 +1,20 @@
 import Sidebar from "../Components/Sidebar";
-import { Outlet } from "react-router";
-import { Navigate } from "react-router";
+import { Outlet, Navigate } from "react-router-dom";
 
 export default function RootPage() {
-  const id = JSON.parse(localStorage.getItem("token"));
+  const token = localStorage.getItem("token");
+  const id = token ? JSON.parse(token) : null;
+  const onSuccess = () => {
+    return (
+      <div className="flex">
+        <Sidebar />
+        <Outlet />
+      </div>
+    );
+  };
 
-  return (
-    <>
-      {id ? (
-        <div className="flex">
-          <Sidebar />
-          <Outlet />
-        </div>
-      ) : (
-        <Navigate to="/login" replace />
-      )}
-    </>
-  );
+  if (id) {
+    return onSuccess();
+  }
+  return <Navigate to="/login" replace />;
 }

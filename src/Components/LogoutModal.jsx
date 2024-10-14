@@ -1,24 +1,29 @@
+import toast from "react-hot-toast";
 import Modal from "../utils/Modal";
 import { MdCancel } from "react-icons/md";
 import { CiWarning } from "react-icons/ci";
 import { useNavigate } from "react-router";
-import { useContext } from "react";
-import { ModalContext } from "../store/ModalContext";
-import toast from "react-hot-toast";
+import {
+  localToken,
+  localAdmin,
+  localUserDetails,
+  loginRoute,
+} from "../Constants";
+
 export default function LogoutModal({ isOpen, handelFunction }) {
-  const context = useContext(ModalContext);
   const navigate = useNavigate();
   function handelLogOut() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userDetails");
-    let admin = localStorage.getItem("admin");
+    localStorage.removeItem(localToken);
+    localStorage.removeItem(localAdmin);
+    let admin = localStorage.getItem(localUserDetails);
     if (admin) {
       localStorage.removeItem("admin");
     }
-    navigate("/login");
+    navigate(loginRoute);
     handelFunction("logout");
     toast.success("Logout Successfully");
   }
+
   return (
     <div>
       <Modal isOpen={isOpen} style="deleteModel modal p-5">

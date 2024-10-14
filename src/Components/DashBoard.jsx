@@ -1,18 +1,37 @@
-import { fetchLastTransaction } from "./http";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { fetchLastTransaction } from "./http";
+import { useContext } from "react";
 import { DashBoardLoader } from "../utils/Loader";
 import AmountContainer from "./AmountContainer";
 import TableRow from "../utils/TableData";
 import ModalLayout from "../utils/ModelLayout";
-import { useContext } from "react";
 import { ModalContext } from "../store/ModalContext";
+import { failError, queryKey } from "../Constants";
+
 export default function DashBoard() {
   const context = useContext(ModalContext);
   const { data, isPending, isError } = useQuery({
-    queryKey: ["transaction", "lastThree"],
+    queryKey: [queryKey, "lastThree"],
     queryFn: fetchLastTransaction,
   });
+
+  let content;
+  if (data) {
+    content = (
+      <table className="transaction_table_dashboard">
+        <TableRow data={data} handelModel={context.handelModel} />
+      </table>
+    );
+  }
+
+  if (isPending) {
+    content = <DashBoardLoader />;
+  }
+
+  if (isError) {
+    content = <p className="text-red-500 text-xl ">{failError}</p>;
+  }
+
   return (
     <div className="dash_main">
       <ModalLayout
@@ -32,13 +51,7 @@ export default function DashBoard() {
       <main className="p-8">
         <AmountContainer />
         <h3 className="mb-3 text-2xl font-bold">Last Transactions</h3>
-        {isPending && <DashBoardLoader />}
-        {isError && <p className="text-red-500 text-xl ">Fail to Fetch Data</p>}
-        {data && (
-          <table className="transaction_table_dashboard">
-            <TableRow data={data} handelModel={context.handelModel} />
-          </table>
-        )}
+        {content}
       </main>
     </div>
   );

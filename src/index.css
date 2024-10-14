@@ -77,9 +77,9 @@ nav{
   position:absolute;
   background-color:blue;
   width:125px;
-  height:8px;
+  height:3px;
   color:blue;
-  top:94px;
+  top:99px;
   left:292px;
   border-top-left-radius:16px;
   border-top-right-radius:16px;
@@ -90,9 +90,9 @@ nav{
   position:absolute;
   background-color:blue;
   width:60px;
-  height:8px;
+  height:3px;
   color:blue;
-  top:94px;
+  top:99px;
   left:438px;
   border-top-left-radius:16px;
   border-top-right-radius:16px;
@@ -103,10 +103,10 @@ nav{
   position:absolute;
   background-color:blue;
   width:50px;
-  height:8px;
+  height:3px;
   color:blue;
   left:520px;
-  top:94px;
+  top:99px;
   border-top-right-radius:16px;
   border-top-left-radius:16px;
   transition:all 0.3s 0s ease;
