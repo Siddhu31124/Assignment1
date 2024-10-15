@@ -12,7 +12,7 @@ import { fetchUserProfile } from "./http";
 export default function Sidebar() {
   const context = useContext(ModalContext);
   const location = useLocation();
-  const { data, isPending, isError } = useQuery({
+  const { data } = useQuery({
     queryKey: ["Profile"],
     queryFn: fetchUserProfile,
   });

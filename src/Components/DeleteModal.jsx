@@ -2,9 +2,11 @@ import { MdCancel } from "react-icons/md";
 import { useMutation } from "@tanstack/react-query";
 import { CiWarning } from "react-icons/ci";
 import toast from "react-hot-toast";
+
 import { queryClient } from "../Components/http";
 import { DeleteLoader } from "../utils/Loader";
 import { handleTransactionDelete } from "../Components/http";
+import { QueryKey } from "../Constants";
 import Modal from "../utils/Modal";
 
 export default function DeleteModal({ isOpen, handelFunction, id }) {
@@ -13,7 +15,7 @@ export default function DeleteModal({ isOpen, handelFunction, id }) {
     mutationFn: handleTransactionDelete,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["transaction"],
+        queryKey: [QueryKey],
       });
       handelFunction("delete");
       toast.success("Delete Successfully");
