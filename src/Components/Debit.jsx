@@ -7,12 +7,12 @@ import ModalLayout from "../utils/ModelLayout";
 import { TableHead } from "../utils/TableData";
 import { ModalContext } from "../store/ModalContext";
 import { useContext } from "react";
-import { FailError, QueryKey } from "../Constants";
+import { FAIL_ERROR, QUERY_KEY } from "../Constants";
 
 export default function Debit() {
   const context = useContext(ModalContext);
   const { data, isPending, isError, error } = useQuery({
-    queryKey: [QueryKey, "debit"],
+    queryKey: [QUERY_KEY, "debit"],
     queryFn: fetchData,
   });
 
@@ -36,13 +36,17 @@ export default function Debit() {
   if (isError) {
     content = (
       <div className="errorMessage">
-        <h1 className="text-3xl font-bold text-red-600">{FailError}</h1>
+        <h1 className="text-3xl font-bold text-red-600">{FAIL_ERROR}</h1>
       </div>
     );
   }
 
   if (isPending) {
-    content = <Loader />;
+    content = (
+      <div className="Loader">
+        <Loader />
+      </div>
+    );
   }
 
   return (

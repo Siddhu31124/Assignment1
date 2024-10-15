@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { queryClient } from "../Components/http";
 import { DeleteLoader } from "../utils/Loader";
 import { handleTransactionDelete } from "../Components/http";
-import { QueryKey } from "../Constants";
+import { QUERY_KEY } from "../Constants";
 import Modal from "../utils/Modal";
 
 export default function DeleteModal({ isOpen, handelFunction, id }) {
@@ -15,9 +15,9 @@ export default function DeleteModal({ isOpen, handelFunction, id }) {
     mutationFn: handleTransactionDelete,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [QueryKey],
+        queryKey: [QUERY_KEY],
       });
-      handelFunction("delete");
+      handelFunction("isDelete");
       toast.success("Delete Successfully");
     },
   });
@@ -46,7 +46,7 @@ export default function DeleteModal({ isOpen, handelFunction, id }) {
         <button
           type="button"
           className="font-bold text-2xl"
-          onClick={() => handelFunction("delete")}
+          onClick={() => handelFunction("isDelete")}
         >
           <MdCancel />
         </button>
@@ -57,7 +57,7 @@ export default function DeleteModal({ isOpen, handelFunction, id }) {
       <p className="flex gap-4 mb-1">
         <button
           className="border-2 p-2 rounded-lg text-sm"
-          onClick={() => handelFunction("delete")}
+          onClick={() => handelFunction("isDelete")}
         >
           No Leave it
         </button>

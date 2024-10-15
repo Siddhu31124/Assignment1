@@ -3,8 +3,11 @@ import { CiCircleChevUp } from "react-icons/ci";
 import { CiCircleChevDown } from "react-icons/ci";
 import { FaPencilAlt } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { useContext } from "react";
+import { ModalContext } from "../store/ModalContext";
 
-export default function TableRow({ data, handelModel }) {
+export default function TableRow({ data }) {
+  const context = useContext(ModalContext);
   return (
     <tbody>
       {data.transactions.map((eachItem) => (
@@ -29,13 +32,13 @@ export default function TableRow({ data, handelModel }) {
           <td>
             <button
               className="mx-5 text-green-500"
-              onClick={() => handelModel("edit", eachItem)}
+              onClick={() => context.handelModel("isEdit", eachItem)}
             >
               <FaPencilAlt />
             </button>
             <button
               className="text-red-500"
-              onClick={() => handelModel("delete", eachItem.id)}
+              onClick={() => context.handelModel("isDelete", eachItem.id)}
             >
               <MdDelete />
             </button>

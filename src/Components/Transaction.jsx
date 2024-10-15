@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+
 import { useContext } from "react";
 import { fetchData } from "./http";
 import TableRow from "../utils/TableData";
@@ -6,12 +7,12 @@ import Loader from "../utils/Loader";
 import { TableHead } from "../utils/TableData";
 import ModalLayout from "../utils/ModelLayout";
 import { ModalContext } from "../store/ModalContext";
-import { QueryKey, FailError } from "../Constants";
+import { QUERY_KEY, FAIL_ERROR } from "../Constants";
 
 export default function Transaction() {
   const context = useContext(ModalContext);
   const { data, isPending, isError } = useQuery({
-    queryKey: [QueryKey, "all"],
+    queryKey: [QUERY_KEY, "all"],
     queryFn: fetchData,
   });
   let content;
@@ -29,13 +30,17 @@ export default function Transaction() {
   if (isError) {
     content = (
       <div className="errorMessage">
-        <h1 className="text-3xl font-bold text-red-600">{FailError}</h1>
+        <h1 className="text-3xl font-bold text-red-600">{FAIL_ERROR}</h1>
       </div>
     );
   }
 
   if (isPending) {
-    content = <Loader />;
+    content = (
+      <div className="Loader">
+        <Loader />
+      </div>
+    );
   }
 
   return (

@@ -2,17 +2,17 @@ import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 
 import { fetchTotalTransaction } from "./http";
-import { QueryKey, FailError } from "../Constants";
+import { QUERY_KEY, FAIL_ERROR } from "../Constants";
 import totalCreditAndDebit from "../utils/TotalCreditAndDebit";
 
-export default function AmountContainer() {
+export default function TotalCreditDebitContainer() {
   const [states, setStates] = useState({ credit: "", debit: "" });
   const {
     data: totalData,
     isPending,
     isError,
   } = useQuery({
-    queryKey: [QueryKey],
+    queryKey: [QUERY_KEY],
     queryFn: fetchTotalTransaction,
   });
   useEffect(() => {
@@ -25,13 +25,12 @@ export default function AmountContainer() {
   }, [totalCreditAndDebit, totalData]);
 
   let content;
-
   if (isPending) {
     content = <p className="text-xl">Loading...</p>;
   }
 
   if (isError) {
-    <p className="text-red-500 text-xl ">{FailError}</p>;
+    <p className="text-red-500 text-xl ">{FAIL_ERROR}</p>;
   }
 
   return (

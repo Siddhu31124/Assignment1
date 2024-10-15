@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+
 import DashBoardPage from "../Pages/DashboardPage";
 import RootPage from "../Pages/RootPage";
 import TransactionPage from "../Pages/TransactionPage";
@@ -6,27 +7,26 @@ import TransactionRootPage from "../Pages/TransactionRoot";
 import CreditPage from "../Pages/CreditPage";
 import DebitPage from "../Pages/DebitPage";
 import ErrorPage from "../Pages/ErrorPage";
-import LoginPage from "../Pages/LoginPage";
 import AdminLoginPage from "../Pages/AdminLoginPage";
 import {
-  TransactionRoute,
-  LoginRoute,
-  AdminLoginRoute,
-  InitialRoute,
+  TRANSACTION_ROUTE,
+  LOGIN_ROUTE,
+  ADMIN_LOGIN_ROUTE,
+  INITIAL_ROUTE,
 } from "../Constants";
 
 export function routersPath() {
   return createBrowserRouter([
-    { path: LoginRoute, element: <LoginPage /> },
-    { path: AdminLoginRoute, element: <AdminLoginPage /> },
+    { path: LOGIN_ROUTE, element: <AdminLoginPage /> },
+    { path: ADMIN_LOGIN_ROUTE, element: <AdminLoginPage /> },
     {
-      path: InitialRoute,
+      path: INITIAL_ROUTE,
       element: <RootPage />,
       errorElement: <ErrorPage />,
       children: [
         { index: true, element: <DashBoardPage /> },
         {
-          path: TransactionRoute,
+          path: TRANSACTION_ROUTE,
           element: <TransactionRootPage />,
           children: [
             { index: true, element: <TransactionPage /> },

@@ -7,7 +7,7 @@ import { queryClient } from "./http";
 import Loader from "../utils/Loader";
 import Modal from "../utils/Modal";
 import Input from "../utils/Input";
-import { QueryKey } from "../Constants";
+import { QUERY_KEY } from "../Constants";
 
 export default function AddModal({ isOpen, type, handelFunction, data }) {
   let mutateFun = handelAddTransaction;
@@ -15,7 +15,7 @@ export default function AddModal({ isOpen, type, handelFunction, data }) {
     mutationFn: mutateFun,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [QueryKey],
+        queryKey: [QUERY_KEY],
       });
       handelFunction(type);
       toast.success("Added Successfully");
@@ -32,7 +32,9 @@ export default function AddModal({ isOpen, type, handelFunction, data }) {
   if (isPending) {
     return (
       <Modal isOpen={isOpen} style="InputModal modal p-5">
-        <Loader />
+        <div className="Loader">
+          <Loader />
+        </div>
       </Modal>
     );
   }

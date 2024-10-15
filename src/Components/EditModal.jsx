@@ -3,12 +3,13 @@ import toast from "react-hot-toast";
 import { MdCancel } from "react-icons/md";
 import { useMutation } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
+
 import Modal from "../utils/Modal";
 import Input from "../utils/Input";
 import { handelEditTransaction } from "./http";
 import { queryClient } from "./http";
 import Loader from "../utils/Loader";
-import { QueryKey } from "../Constants";
+import { QUERY_KEY } from "../Constants";
 
 export default function EditModal({ isOpen, type, handelFunction, data }) {
   const [inputValues, setInputValues] = useState(data);
@@ -20,7 +21,7 @@ export default function EditModal({ isOpen, type, handelFunction, data }) {
     mutationFn: mutateFun,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [QueryKey],
+        queryKey: [QUERY_KEY],
       });
       handelFunction(type);
       toast.success(`Updated Successfully`);
@@ -39,11 +40,13 @@ export default function EditModal({ isOpen, type, handelFunction, data }) {
     let formData = Object.fromEntries(data.entries());
     mutate({ data: formData, id: id });
   }
-
+  console.log(data);
   if (isPending) {
     return (
       <Modal isOpen={isOpen} style="InputModal modal p-5">
-        <Loader />
+        <div className="Loader">
+          <Loader />
+        </div>
       </Modal>
     );
   }

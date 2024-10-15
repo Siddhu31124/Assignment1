@@ -6,24 +6,24 @@ export default function ModalLayout({ openModal, handelModel, selectedData }) {
   return (
     <div>
       <DeleteModal
-        isOpen={openModal.delete}
+        isOpen={openModal.isDelete}
         handelFunction={handelModel}
         id={selectedData}
       />
       <AddModel
-        isOpen={openModal.add}
+        isOpen={openModal.isAdd}
         handelFunction={handelModel}
-        type="add"
+        type="isAdd"
       />
       <EditModel
-        isOpen={openModal.edit}
-        type="edit"
+        isOpen={openModal.isEdit}
+        type="isEdit"
         handelFunction={handelModel}
         data={selectedData}
       />
       <LogoutModal
-        isOpen={openModal.logout}
-        type="logout"
+        isOpen={openModal.isLogout}
+        type="isLogout"
         handelFunction={handelModel}
       />
     </div>

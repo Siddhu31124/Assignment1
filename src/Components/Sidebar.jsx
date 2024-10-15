@@ -5,10 +5,12 @@ import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
 import { useContext } from "react";
 import { FaCircleUser } from "react-icons/fa6";
+
 import { ModalContext } from "../store/ModalContext";
 import { IoIosLogOut } from "react-icons/io";
-import { InitialRoute, TransactionRoute } from "../Constants";
+import { INITIAL_ROUTE, TRANSACTION_ROUTE } from "../Constants";
 import { fetchUserProfile } from "./http";
+
 export default function Sidebar() {
   const context = useContext(ModalContext);
   const location = useLocation();
@@ -16,6 +18,7 @@ export default function Sidebar() {
     queryKey: ["Profile"],
     queryFn: fetchUserProfile,
   });
+
   let email = "";
   let name = "";
   if (data) {
@@ -25,9 +28,11 @@ export default function Sidebar() {
   const path = location.pathname;
   const isAdmin = localStorage.getItem("admin");
   let content = <div className="active_indicator_transaction">i</div>;
-  if (path === InitialRoute) {
+
+  if (path === INITIAL_ROUTE) {
     content = <div className="active_indicator_dashboard">i</div>;
   }
+
   return (
     <aside className="sidebar">
       {content}
@@ -35,7 +40,7 @@ export default function Sidebar() {
         <img src="Logo.png" className="ml-5" />
         <ul>
           <NavLink
-            to={InitialRoute}
+            to={INITIAL_ROUTE}
             className={({ isActive }) => (isActive ? "active" : "")}
           >
             <li className="font-bold flex items-center">
@@ -44,7 +49,7 @@ export default function Sidebar() {
             </li>
           </NavLink>
           <NavLink
-            to={TransactionRoute}
+            to={TRANSACTION_ROUTE}
             className={({ isActive }) => (isActive ? "active" : "")}
           >
             <li className="font-bold flex items-center">
@@ -59,18 +64,18 @@ export default function Sidebar() {
 
         <div className="flex flex-col flex-grow text-xs">
           <p className="font-medium" style={{ color: "rgba(80, 88, 135, 1)" }}>
-            {name || ""}
+            {name}
           </p>
           <p
             className="font-medium"
             style={{ color: "rgba(113, 142, 191, 1)" }}
           >
-            {email || ""}
+            {email}
           </p>
         </div>
 
         <IoIosLogOut
-          onClick={() => context.handelModel("logout")}
+          onClick={() => context.handelModel("isLogout")}
           color="rgba(113, 142, 191, 1)"
           className="text-lg mr-12 "
         />

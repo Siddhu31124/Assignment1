@@ -19,7 +19,7 @@ export default function TransactionHeader() {
   return (
     <>
       <AddModal
-        isOpen={context.openModal.add}
+        isOpen={context.openModal.isAdd}
         handelFunction={context.handelModel}
         type="add"
       />
@@ -41,7 +41,7 @@ export default function TransactionHeader() {
         </div>
         <button
           className="bg-blue-700 text-white hover:bg-blue-800 p-2 text-xs font-medium rounded-lg"
-          onClick={() => context.handelModel("add")}
+          onClick={() => context.handelModel("isAdd")}
         >
           + Add Transactions
         </button>

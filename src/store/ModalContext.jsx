@@ -8,10 +8,10 @@ export const ModalContext = createContext({
 export function ModalContextComponent({ children }) {
   const [selectedData, setSelectedData] = useState();
   const [openModal, setOpenModal] = useState({
-    delete: false,
-    add: false,
-    edit: false,
-    logout: false,
+    isDelete: false,
+    isAdd: false,
+    isEdit: false,
+    isLogout: false,
   });
   function handelModel(item, data) {
     if (data) {
