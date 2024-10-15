@@ -14,6 +14,7 @@ import { fetchUserProfile } from "../http";
 export default function Sidebar() {
   const context = useContext(ModalContext);
   const location = useLocation();
+
   const { data, isPending } = useQuery({
     queryKey: ["Profile"],
     queryFn: fetchUserProfile,
@@ -21,11 +22,10 @@ export default function Sidebar() {
 
   const loginState = () => {
     switch (true) {
-      case data !== undefined: {
+      case data !== undefined:
         return (
           <div className="flex gap-2 items-start px-2 mt-auto pb-6">
             <FaCircleUser className="text-2xl text-blue-600 ml-6" />
-
             <div className="flex flex-col flex-grow text-xs">
               <p
                 className="font-medium"
@@ -40,26 +40,26 @@ export default function Sidebar() {
                 {data.email}
               </p>
             </div>
-
             <IoIosLogOut
               onClick={() => context.handelOpenModal("isLogout")}
               color="rgba(113, 142, 191, 1)"
-              className="text-lg mr-12 "
+              className="text-lg mr-12"
             />
           </div>
         );
-      }
-      case isPending: {
+      case isPending:
         return <p>Loading...</p>;
-      }
     }
   };
+
   const path = location.pathname;
   const isAdmin = localStorage.getItem(LOCAL_ADMIN);
   let styleBar = <div className="active_indicator_transaction"></div>;
+
   if (path === INITIAL_ROUTE) {
     styleBar = <div className="active_indicator_dashboard"></div>;
   }
+
   const sideBarContent = () => {
     return (
       <div>

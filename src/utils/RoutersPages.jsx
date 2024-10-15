@@ -17,6 +17,8 @@ import {
   DEBIT_ROUTE,
 } from "../Constants";
 
+//No magic strings
+//Move this file to utils
 export function routersPath() {
   return createBrowserRouter([
     { path: LOGIN_ROUTE, element: <LoginPage /> },

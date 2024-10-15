@@ -1,25 +1,26 @@
 import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import AddModal from "./AddModal";
 import { useContext } from "react";
+
+import AddModal from "./AddModal";
 import { ModalContext } from "../store/ModalContext";
 import { TRANSACTION_ROUTE, CREDIT_ROUTE } from "../Constants";
+
 export default function TransactionHeader() {
   const context = useContext(ModalContext);
   const location = useLocation();
   const path = location.pathname;
+
   const isActivePathStyle = ({ isActive }) => (isActive ? "text-blue-500" : "");
+
   const styleFunction = () => {
     switch (true) {
-      case path === TRANSACTION_ROUTE: {
+      case path === TRANSACTION_ROUTE:
         return "active_indicator_all";
-      }
-      case path === CREDIT_ROUTE: {
+      case path === CREDIT_ROUTE:
         return "active_indicator_credit";
-      }
-      default: {
+      default:
         return "active_indicator_debit";
-      }
     }
   };
 

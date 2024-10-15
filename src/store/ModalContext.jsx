@@ -1,6 +1,8 @@
 import { createContext } from "react";
 import { useState } from "react";
+
 export const ModalContext = createContext();
+
 export function ContextProvider({ children }) {
   const [selectedData, setSelectedData] = useState();
   const [ModalStates, setModalState] = useState({

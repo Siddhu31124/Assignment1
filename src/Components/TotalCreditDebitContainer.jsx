@@ -1,10 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
 
 import { fetchTotalTransaction } from "../http";
 import { QUERY_KEY, FAIL_ERROR } from "../Constants";
 import totalCreditAndDebit from "../utils/TotalCreditAndDebit";
 
 export default function TotalCreditDebitContainer() {
+  const [totalStates, setTotalStates] = useState({ credit: "", debit: "" });
+
   const {
     data: totalData,
     isPending,
@@ -13,10 +16,13 @@ export default function TotalCreditDebitContainer() {
     queryKey: [QUERY_KEY],
     queryFn: fetchTotalTransaction,
   });
-  let data = { credit: "", debit: "" };
+
   if (totalData) {
-    data = totalCreditAndDebit(totalData.totals_credit_debit_transactions);
+    let data = totalCreditAndDebit(totalData.totals_credit_debit_transactions);
+    setTotalStates(data);
   }
+
+  let content;
 
   const msgContent = () => {
     switch (true) {
@@ -26,32 +32,30 @@ export default function TotalCreditDebitContainer() {
       case isError: {
         return <p className="text-red-500 text-xl ">{FAIL_ERROR}</p>;
       }
+      default: {
+        return null;
+      }
     }
   };
 
-  const totalCreditAndDebitContainer = () => {
-    if (data) {
-      return (
-        <div className="dash_amount">
-          <div className="text-green-400 text-3xl font-bold">
-            <div className="flex flex-col gap-1">
-              {data.credit}
-              {msgContent()}
-              <p className="text-base">Credit</p>
-            </div>
-            <img src="Credit.png" />
-          </div>
-          <div className="text-red-500 text-3xl font-bold">
-            <div className="flex flex-col gap-1">
-              {data.debit}
-              {msgContent()}
-              <p className="text-base">Debit</p>
-            </div>
-            <img src="Debit.png" />
-          </div>
+  return (
+    <div className="dash_amount">
+      <div className="text-green-400 text-3xl font-bold">
+        <div className="flex flex-col gap-1">
+          {totalStates.credit}
+          {content}
+          <p className="text-base">Credit</p>
         </div>
-      );
-    }
-  };
-  return totalCreditAndDebitContainer();
+        <img src="Credit.png" />
+      </div>
+      <div className="text-red-500 text-3xl font-bold">
+        <div className="flex flex-col gap-1">
+          {totalStates.debit}
+          {msgContent()}
+          <p className="text-base">Debit</p>
+        </div>
+        <img src="Debit.png" />
+      </div>
+    </div>
+  );
 }

@@ -2,13 +2,11 @@ import dayjs from "dayjs";
 import toast from "react-hot-toast";
 import { MdCancel } from "react-icons/md";
 import { useMutation } from "@tanstack/react-query";
-import { useState, useEffect } from "react";
-import { useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import Modal from "./CommonComponents/Modal";
 import Input from "./CommonComponents/Input";
-import { handelEditTransaction } from "../http";
-import { queryClient } from "../http";
+import { handelEditTransaction, queryClient } from "../http";
 import Loader from "./CommonComponents/Loader";
 import { QUERY_KEY } from "../Constants";
 import { ModalContext } from "../store/ModalContext";
@@ -27,12 +25,12 @@ export default function EditModal() {
   const typeOfModal = "isEdit";
 
   const [inputValues, setInputValues] = useState(editTransactionData);
-  console.log(inputValues);
 
   useEffect(() => {
     setInputValues(editTransactionData);
   }, [editTransactionData]);
-  let mutateFun = handelEditTransaction;
+
+  const mutateFun = handelEditTransaction;
   const { mutate, isPending } = useMutation({
     mutationFn: mutateFun,
     onSuccess: () => {
@@ -56,6 +54,7 @@ export default function EditModal() {
     let formData = Object.fromEntries(data.entries());
     mutate({ data: formData, id: id });
   }
+
   if (isPending) {
     return (
       <Modal isOpen={isOpen} style="inputModal modal p-5">
@@ -70,10 +69,10 @@ export default function EditModal() {
     <Modal isOpen={isOpen} style="inputModal modal p-5">
       <form
         className="p-6 flex flex-col gap-4"
-        onSubmit={() => handelEditData(event, editTransactionData.id)}
+        onSubmit={(event) => handelEditData(event, editTransactionData.id)}
       >
         <div className="flex justify-between">
-          <h3 className="font-bold text-2xl">Add Transaction</h3>
+          <h3 className="font-bold text-2xl">Edit Transaction</h3>
 
           <button
             type="button"
@@ -83,7 +82,9 @@ export default function EditModal() {
             <MdCancel />
           </button>
         </div>
+
         <p>Fill The Edit Details</p>
+
         <Input
           label_name="Transaction Name"
           type="text"
@@ -91,22 +92,25 @@ export default function EditModal() {
           name="name"
           placeholder="Transaction Name"
           value={inputValues ? inputValues.transaction_name : ""}
-          onChange={() => handelChange(event, "transaction_name")}
+          onChange={(event) => handelChange(event, "transaction_name")}
         />
+
         <Dropdown
           inputId="type"
           itemsName={TRANSACTION_TYPE}
           types
           value={inputValues ? inputValues.type : ""}
-          onChange={() => handelChange(event, "type")}
+          onChange={(event) => handelChange(event, "type")}
         />
+
         <Dropdown
           inputId="category"
           itemsName={TRANSACTION_CATEGORY}
           types
           value={inputValues ? inputValues.category : ""}
-          onChange={() => handelChange(event, "category")}
+          onChange={(event) => handelChange(event, "category")}
         />
+
         <Input
           label_name="Amount"
           type="number"
@@ -114,8 +118,9 @@ export default function EditModal() {
           name="amount"
           placeholder="Amount"
           value={inputValues ? inputValues.amount : ""}
-          onChange={() => handelChange(event, "amount")}
+          onChange={(event) => handelChange(event, "amount")}
         />
+
         <Input
           label_name="Date"
           type="date"
@@ -123,8 +128,9 @@ export default function EditModal() {
           name="date"
           placeholder="Date"
           value={inputValues ? dayjs(inputValues.date).format(DATA_FORMAT) : ""}
-          onChange={() => handelChange(event, "date")}
+          onChange={(event) => handelChange(event, "date")}
         />
+
         <button className="bg-blue-600 p-2 text-white font-bold rounded-lg">
           Edit Transactions
         </button>
