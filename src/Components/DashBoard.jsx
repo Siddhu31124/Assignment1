@@ -16,26 +16,27 @@ export default function DashBoard() {
     queryFn: fetchLastTransaction,
   });
 
-  let content;
-  if (data) {
-    content = (
-      <table className="transaction_table_dashboard">
-        <TableBody data={data} />
-      </table>
-    );
-  }
-
-  if (isPending) {
-    content = (
-      <div className="ml-96 pl-12 pt-28">
-        <Loader />
-      </div>
-    );
-  }
-
-  if (isError) {
-    content = <p className="text-red-500 text-xl ">{FAIL_ERROR}</p>;
-  }
+  const lastTransaction = () => {
+    switch (true) {
+      case data !== undefined: {
+        return (
+          <table className="transaction_table_dashboard">
+            <TableBody data={data} />
+          </table>
+        );
+      }
+      case isPending: {
+        return (
+          <div className="ml-96 pl-12 pt-28">
+            <Loader />
+          </div>
+        );
+      }
+      case isError: {
+        return <p className="text-red-500 text-xl ">{FAIL_ERROR}</p>;
+      }
+    }
+  };
 
   return (
     <div className="dash_main">
@@ -52,7 +53,7 @@ export default function DashBoard() {
       <main className="p-8">
         <TotalCreditDebitContainer />
         <h3 className="mb-3 text-2xl font-bold">Last Transactions</h3>
-        {content}
+        {lastTransaction()}
       </main>
     </div>
   );

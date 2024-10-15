@@ -57,8 +57,7 @@ export const handleTransactionDelete = async ({id}) => {
       const url = DELETE_TRANSACTION_API+id;
         const res = await axios.delete(url, {
             headers:{...header},
-
-            });  
+          });  
   };
 
 export async function handelAddTransaction({data}){
