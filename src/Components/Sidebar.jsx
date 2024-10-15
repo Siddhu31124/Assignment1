@@ -14,28 +14,54 @@ import { fetchUserProfile } from "../http";
 export default function Sidebar() {
   const context = useContext(ModalContext);
   const location = useLocation();
-  const { data } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ["Profile"],
     queryFn: fetchUserProfile,
   });
 
-  let email = "";
-  let name = "";
-  if (data) {
-    email = data.email;
-    name = data.name;
-  }
+  const loginState = () => {
+    switch (true) {
+      case data !== undefined: {
+        return (
+          <div className="flex gap-2 items-start px-2 mt-auto pb-6">
+            <FaCircleUser className="text-2xl text-blue-600 ml-6" />
+
+            <div className="flex flex-col flex-grow text-xs">
+              <p
+                className="font-medium"
+                style={{ color: "rgba(80, 88, 135, 1)" }}
+              >
+                {data.name}
+              </p>
+              <p
+                className="font-medium"
+                style={{ color: "rgba(113, 142, 191, 1)" }}
+              >
+                {data.email}
+              </p>
+            </div>
+
+            <IoIosLogOut
+              onClick={() => context.handelOpenModal("isLogout")}
+              color="rgba(113, 142, 191, 1)"
+              className="text-lg mr-12 "
+            />
+          </div>
+        );
+      }
+      case isPending: {
+        return <p>Loading...</p>;
+      }
+    }
+  };
   const path = location.pathname;
   const isAdmin = localStorage.getItem(LOCAL_ADMIN);
-  let content = <div className="active_indicator_transaction">i</div>;
-
+  let styleBar = <div className="active_indicator_transaction"></div>;
   if (path === INITIAL_ROUTE) {
-    content = <div className="active_indicator_dashboard">i</div>;
+    styleBar = <div className="active_indicator_dashboard"></div>;
   }
-
-  return (
-    <aside className="sidebar">
-      {content}
+  const sideBarContent = () => {
+    return (
       <div>
         <img src="Logo.png" className="ml-5" />
         <ul>
@@ -59,28 +85,14 @@ export default function Sidebar() {
           </NavLink>
         </ul>
       </div>
-      <div className="flex gap-2 items-start px-2 mt-auto">
-        <FaCircleUser className="text-2xl text-blue-600 ml-6" />
+    );
+  };
 
-        <div className="flex flex-col flex-grow text-xs">
-          <p className="font-medium" style={{ color: "rgba(80, 88, 135, 1)" }}>
-            {name}
-          </p>
-          <p
-            className="font-medium"
-            style={{ color: "rgba(113, 142, 191, 1)" }}
-          >
-            {email}
-          </p>
-        </div>
-
-        <IoIosLogOut
-          onClick={() => context.handelOpenModal("isLogout")}
-          color="rgba(113, 142, 191, 1)"
-          className="text-lg mr-12 "
-        />
-      </div>
-      ;
+  return (
+    <aside className="sidebar">
+      {styleBar}
+      {sideBarContent()}
+      {loginState()}
     </aside>
   );
 }

@@ -12,18 +12,26 @@ import { queryClient } from "../http";
 import Loader from "./CommonComponents/Loader";
 import { QUERY_KEY } from "../Constants";
 import { ModalContext } from "../store/ModalContext";
+import Dropdown from "./CommonComponents/Dropdown";
+import {
+  TRANSACTION_CATEGORY,
+  TRANSACTION_TYPE,
+  DATA_FORMAT,
+} from "../Constants";
 
 export default function EditModal() {
   const context = useContext(ModalContext);
   const isOpen = context.ModalStates.isEdit;
   const closeModalFunction = context.handelCloseModal;
-  const edit_transaction_data = context.selectedData;
+  const editTransactionData = context.selectedData;
   const typeOfModal = "isEdit";
 
-  const [inputValues, setInputValues] = useState(edit_transaction_data);
+  const [inputValues, setInputValues] = useState(editTransactionData);
+  console.log(inputValues);
+
   useEffect(() => {
-    setInputValues(edit_transaction_data);
-  }, [edit_transaction_data]);
+    setInputValues(editTransactionData);
+  }, [editTransactionData]);
   let mutateFun = handelEditTransaction;
   const { mutate, isPending } = useMutation({
     mutationFn: mutateFun,
@@ -36,9 +44,9 @@ export default function EditModal() {
     },
   });
 
-  function handelChange(event, val) {
+  function handelChange(event, typeInput) {
     setInputValues((prevVal) => {
-      return { ...prevVal, [val]: event.target.value };
+      return { ...prevVal, [typeInput]: event.target.value };
     });
   }
 
@@ -62,7 +70,7 @@ export default function EditModal() {
     <Modal isOpen={isOpen} style="inputModal modal p-5">
       <form
         className="p-6 flex flex-col gap-4"
-        onSubmit={() => handelEditData(event, edit_transaction_data.id)}
+        onSubmit={() => handelEditData(event, editTransactionData.id)}
       >
         <div className="flex justify-between">
           <h3 className="font-bold text-2xl">Add Transaction</h3>
@@ -85,37 +93,20 @@ export default function EditModal() {
           value={inputValues ? inputValues.transaction_name : ""}
           onChange={() => handelChange(event, "transaction_name")}
         />
-        <div className=" flex flex-col gap-1">
-          <label htmlFor="type">Transaction Type</label>
-          <select
-            id="type"
-            name="type"
-            value={inputValues ? inputValues.type : ""}
-            onChange={() => handelChange(event, "type")}
-            required
-          >
-            <option value="">Select Transaction Type</option>
-            <option value="credit">credit</option>
-            <option value="debit">debit</option>
-          </select>
-        </div>
-        <div className=" flex flex-col gap-1">
-          <label htmlFor="category">Transaction Category</label>
-          <select
-            id="category"
-            name="category"
-            required
-            value={inputValues ? inputValues.category : ""}
-            onChange={() => handelChange(event, "category")}
-          >
-            <option value="">Select</option>
-            <option value="shopping">Shopping</option>
-            <option value="Transfer">Transfer</option>
-            <option value="Service">Service</option>
-            <option value="Rent">Rent</option>
-            <option value="food">food</option>
-          </select>
-        </div>
+        <Dropdown
+          inputId="type"
+          itemsName={TRANSACTION_TYPE}
+          types
+          value={inputValues ? inputValues.type : ""}
+          onChange={() => handelChange(event, "type")}
+        />
+        <Dropdown
+          inputId="category"
+          itemsName={TRANSACTION_CATEGORY}
+          types
+          value={inputValues ? inputValues.category : ""}
+          onChange={() => handelChange(event, "category")}
+        />
         <Input
           label_name="Amount"
           type="number"
@@ -131,9 +122,7 @@ export default function EditModal() {
           id="date"
           name="date"
           placeholder="Date"
-          value={
-            inputValues ? dayjs(inputValues.date).format("YYYY-MM-DD") : ""
-          }
+          value={inputValues ? dayjs(inputValues.date).format(DATA_FORMAT) : ""}
           onChange={() => handelChange(event, "date")}
         />
         <button className="bg-blue-600 p-2 text-white font-bold rounded-lg">

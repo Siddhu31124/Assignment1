@@ -2,6 +2,8 @@ export const INITIAL_ROUTE='/'
 export const LOGIN_ROUTE='/login'
 export const ADMIN_LOGIN_ROUTE='/admin/login'
 export const TRANSACTION_ROUTE='/transaction'
+export const CREDIT_ROUTE='/transaction/credit'
+export const DEBIT_ROUTE='/transaction/debit'
 
 export const LOGIN_ERROR="Please Enter Valid Details"
 export const ERROR_PAGE_MSG="The page Is Not found Enter Valid URL"
@@ -25,3 +27,9 @@ export const PROFILE_API='https://bursting-gelding-24.hasura.app/api/rest/profil
 
 export const LIMIT_OF_ALL_TRANSACTION=100
 export const OFFSET_OF_ALL_TRANSACTION=0
+
+export const DATA_FORMAT="YYYY-MM-DD"
+
+
+export const TRANSACTION_TYPE=[{name:"credit"},{name:"debit"}]
+export const TRANSACTION_CATEGORY=[{name:'shopping'},{name:'Transfer'},{name:'food'},{name:'Rent'},{name:'Service'}]

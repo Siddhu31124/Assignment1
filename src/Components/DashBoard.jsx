@@ -37,10 +37,8 @@ export default function DashBoard() {
       }
     }
   };
-
-  return (
-    <div className="dash_main">
-      <ModalLayout />
+  const nav = () => {
+    return (
       <nav>
         <h3 className="text-2xl font-bold">Accounts</h3>
         <button
@@ -50,6 +48,13 @@ export default function DashBoard() {
           + Add Transactions
         </button>
       </nav>
+    );
+  };
+
+  return (
+    <div className="dash_main">
+      <ModalLayout />
+      {nav()}
       <main className="p-8">
         <TotalCreditDebitContainer />
         <h3 className="mb-3 text-2xl font-bold">Last Transactions</h3>

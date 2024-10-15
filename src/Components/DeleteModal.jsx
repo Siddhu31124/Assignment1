@@ -33,16 +33,8 @@ export default function DeleteModal() {
     mutate({ id: delete_transaction_id });
   }
 
-  if (isPending) {
+  const deleteMsg = () => {
     return (
-      <Modal isOpen={isOpen} style="deleteModel modal p-5">
-        <DeleteLoader />
-      </Modal>
-    );
-  }
-
-  return (
-    <Modal isOpen={isOpen} style="deleteModel modal p-5">
       <div className="flex justify-between mb-2">
         <div className="flex gap-3 items-center">
           <CiWarning className=" text-orange-400 text-3xl font-bold" />
@@ -58,6 +50,20 @@ export default function DeleteModal() {
           <MdCancel />
         </button>
       </div>
+    );
+  };
+
+  if (isPending) {
+    return (
+      <Modal isOpen={isOpen} style="deleteModel modal p-5">
+        <DeleteLoader />
+      </Modal>
+    );
+  }
+
+  return (
+    <Modal isOpen={isOpen} style="deleteModel modal p-5">
+      {deleteMsg()}
       <p className="text-gray-400 mb-2">
         The Transaction is Deleted Immeditely It cannot be undo
       </p>

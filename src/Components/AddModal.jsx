@@ -9,6 +9,8 @@ import Modal from "./CommonComponents/Modal";
 import Input from "./CommonComponents/Input";
 import { QUERY_KEY } from "../Constants";
 import { ModalContext } from "../store/ModalContext";
+import Dropdown from "./CommonComponents/Dropdown";
+import { TRANSACTION_CATEGORY, TRANSACTION_TYPE } from "../Constants";
 
 export default function AddModal() {
   const context = useContext(ModalContext);
@@ -70,25 +72,8 @@ export default function AddModal() {
           name="name"
           placeholder="Transaction Name"
         />
-        <div className=" flex flex-col gap-1 font-normal">
-          <label htmlFor="type">Transaction Type</label>
-          <select id="type" name="type" required>
-            <option value="">Select Transaction Type</option>
-            <option value="credit">credit</option>
-            <option value="debit">debit</option>
-          </select>
-        </div>
-        <div className=" flex flex-col gap-1">
-          <label htmlFor="category">Transaction Category</label>
-          <select id="category" name="category" required>
-            <option value="">Select</option>
-            <option value="shopping">Shopping</option>
-            <option value="Transfer">Transfer</option>
-            <option value="Service">Service</option>
-            <option value="Rent">Rent</option>
-            <option value="Food">food</option>
-          </select>
-        </div>
+        <Dropdown inputId="type" itemsName={TRANSACTION_TYPE} types />
+        <Dropdown inputId="type" itemsName={TRANSACTION_CATEGORY} />
         <Input
           label_name="Amount"
           type="number"

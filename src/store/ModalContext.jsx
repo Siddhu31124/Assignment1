@@ -18,8 +18,6 @@ export function ContextProvider({ children }) {
     });
   }
   function handelCloseModal(typeOfModal) {
-    console.log(ModalStates);
-    console.log(typeOfModal);
     setModalState((prevVal) => {
       return { ...prevVal, [typeOfModal]: false };
     });

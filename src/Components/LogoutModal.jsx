@@ -26,25 +26,31 @@ export default function LogoutModal() {
   const closeModalFunction = context.handelCloseModal;
   const typeOfModal = "isLogout";
 
+  const logoutMsg = () => {
+    return (
+      <div className="flex justify-between mb-2">
+        <div className="flex gap-3 items-center">
+          <CiWarning className=" text-orange-400 text-3xl font-bold" />
+          <h3 className="font-bold text-xl">
+            Are You Sure You Want to Logout ?
+          </h3>
+        </div>
+        <button
+          type="button"
+          className="font-bold text-2xl"
+          onClick={() => closeModalFunction(typeOfModal)}
+        >
+          <MdCancel />
+        </button>
+      </div>
+    );
+  };
+
   return (
     <div>
       <Modal isOpen={isOpen} style="deleteModel modal p-5">
         <div>
-          <div className="flex justify-between mb-2">
-            <div className="flex gap-3 items-center">
-              <CiWarning className=" text-orange-400 text-3xl font-bold" />
-              <h3 className="font-bold text-xl">
-                Are You Sure You Want to Logout ?
-              </h3>
-            </div>
-            <button
-              type="button"
-              className="font-bold text-2xl"
-              onClick={() => closeModalFunction(typeOfModal)}
-            >
-              <MdCancel />
-            </button>
-          </div>
+          {logoutMsg()}
           <p className="text-gray-400 mb-2">You will be Logout</p>
           <p className="flex gap-4 mb-1">
             <button

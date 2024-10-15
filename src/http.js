@@ -17,7 +17,6 @@ import { header } from "./header.js";
 export const queryClient = new QueryClient();
 
 export async function fetchAllTransaction(){
-  console.log(header)
     const res = await axios({
         method: "get",
             baseURL: ALL_TRANSACTION_API,
