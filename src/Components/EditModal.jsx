@@ -17,10 +17,12 @@ export default function EditModal() {
   const context = useContext(ModalContext);
   const isOpen = context.ModalStates.isEdit;
   const closeModalFunction = context.handelCloseModal;
+  //Rename the variable name
   const edit_transaction_data = context.selectedData;
   const typeOfModal = "isEdit";
 
   const [inputValues, setInputValues] = useState(edit_transaction_data);
+  //Remove the un necessary use effects
   useEffect(() => {
     setInputValues(edit_transaction_data);
   }, [edit_transaction_data]);
@@ -36,6 +38,7 @@ export default function EditModal() {
     },
   });
 
+  //Rename the variables
   function handelChange(event, val) {
     setInputValues((prevVal) => {
       return { ...prevVal, [val]: event.target.value };

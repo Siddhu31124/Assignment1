@@ -6,6 +6,8 @@ import { QUERY_KEY, FAIL_ERROR } from "../Constants";
 import totalCreditAndDebit from "../utils/TotalCreditAndDebit";
 
 export default function TotalCreditDebitContainer() {
+  //Update the initial values
+  //Remove this state
   const [totalStates, setTotalStates] = useState({ credit: "", debit: "" });
   const {
     data: totalData,
@@ -24,6 +26,7 @@ export default function TotalCreditDebitContainer() {
     }
   }, [totalCreditAndDebit, totalData]);
 
+  //Change this as switch case
   let content;
   if (isPending) {
     content = <p className="text-xl">Loading...</p>;

@@ -14,11 +14,13 @@ import { fetchUserProfile } from "../http";
 export default function Sidebar() {
   const context = useContext(ModalContext);
   const location = useLocation();
+  //Handle loading states
   const { data } = useQuery({
     queryKey: ["Profile"],
     queryFn: fetchUserProfile,
   });
 
+  //Remove these variables
   let email = "";
   let name = "";
   if (data) {
@@ -27,12 +29,15 @@ export default function Sidebar() {
   }
   const path = location.pathname;
   const isAdmin = localStorage.getItem(LOCAL_ADMIN);
+
+  //Remove the dummy content
   let content = <div className="active_indicator_transaction">i</div>;
 
   if (path === INITIAL_ROUTE) {
     content = <div className="active_indicator_dashboard">i</div>;
   }
 
+  //Write this jsx into multiple function
   return (
     <aside className="sidebar">
       {content}
@@ -80,6 +85,7 @@ export default function Sidebar() {
           className="text-lg mr-12 "
         />
       </div>
+      {/* //Remove this semi colen */}
       ;
     </aside>
   );

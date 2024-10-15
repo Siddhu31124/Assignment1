@@ -1,4 +1,6 @@
 const totalCreditAndDebit = (totals_credit_debit_transactions)=>{
+
+    //Avoid using totals_credit_debit_transactions[1]
     if(totals_credit_debit_transactions.length>1){
         return { credit:totals_credit_debit_transactions[1].sum,
                   debit:totals_credit_debit_transactions[0].sum }

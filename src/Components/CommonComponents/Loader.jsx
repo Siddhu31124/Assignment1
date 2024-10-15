@@ -13,6 +13,8 @@ export default function Loader() {
     />
   );
 }
+
+//Add a single loader component
 export const DeleteLoader = () => {
   return (
     <div className="pt-4 pl-56 mr-2">

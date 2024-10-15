@@ -1,6 +1,8 @@
 import { createContext } from "react";
 import { useState } from "react";
+
 export const ModalContext = createContext();
+
 export function ContextProvider({ children }) {
   const [selectedData, setSelectedData] = useState();
   const [ModalStates, setModalState] = useState({
@@ -18,6 +20,7 @@ export function ContextProvider({ children }) {
     });
   }
   function handelCloseModal(typeOfModal) {
+    //Remove the consoles
     console.log(ModalStates);
     console.log(typeOfModal);
     setModalState((prevVal) => {

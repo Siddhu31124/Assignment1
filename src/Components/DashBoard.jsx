@@ -19,6 +19,7 @@ export default function DashBoard() {
   const lastTransaction = () => {
     switch (true) {
       case data !== undefined: {
+        //Move the table element into the component and rename the component
         return (
           <table className="transaction_table_dashboard">
             <TableBody data={data} />
