@@ -17,8 +17,10 @@ import {
   ADMIN_LOGIN_ROUTE,
 } from "../Constants";
 
+//Rename the component
 export default function AdminUserLogin() {
   const location = useLocation();
+  //Rename this state
   const [isLogin, setIsLogin] = useState(false);
   const navigate = useNavigate();
   const { mutate, isPending, isError } = useMutation({
@@ -28,11 +30,13 @@ export default function AdminUserLogin() {
     },
   });
 
+  //Remove this variable, we can compute this from the condition itself
   let isAdmin = false;
   if (location.pathname === ADMIN_LOGIN_ROUTE) {
     isAdmin = true;
   }
 
+  //rename this as userId
   let id = localStorage.getItem(LOCAL_TOKEN);
 
   function handleChangePath() {
@@ -45,12 +49,15 @@ export default function AdminUserLogin() {
     let loginData = Object.fromEntries(data.entries());
     mutate({ data: loginData, admin: isAdmin });
   }
+
+  //avoid jsx variables over functions
   let errorContent = isError ? (
     <p className="text-red-600 mb-2">{LOGIN_ERROR}</p>
   ) : (
     ""
   );
 
+  //Change these code as render functions
   switch (true) {
     case id: {
       return <Navigate to={INITIAL_ROUTE} replace />;

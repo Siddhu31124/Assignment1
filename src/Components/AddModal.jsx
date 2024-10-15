@@ -45,6 +45,7 @@ export default function AddModal() {
     );
   }
 
+  //Add a seperate component for select
   return (
     <Modal isOpen={isOpen} style="inputModal modal p-5">
       <form

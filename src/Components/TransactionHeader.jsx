@@ -9,6 +9,8 @@ export default function TransactionHeader() {
   const location = useLocation();
   const path = location.pathname;
   const isActivePathStyle = ({ isActive }) => (isActive ? "text-blue-500" : "");
+
+  //Change this as function and switch case
   let style;
   if (path === TRANSACTION_ROUTE) {
     style = "active_indicator_all";

@@ -6,6 +6,7 @@ import { MdDelete } from "react-icons/md";
 import { useContext } from "react";
 import { ModalContext } from "../../store/ModalContext";
 
+//No magic strings
 export default function TableBody({ data }) {
   const context = useContext(ModalContext);
   return (
