@@ -8,6 +8,7 @@ import
   TOTAL_TRANSACTION_API,
   DELETE_TRANSACTION_API,
   ADD_TRANSACTION_API,
+  UPDATE_TRANSACTION_API,
   LOGIN_API,LOCAL_ADMIN,PROFILE_API} from "../Constants";
 
 export const queryClient = new QueryClient();
@@ -97,7 +98,7 @@ export async function handelAddTransaction({data}){
 
 export async function handelEditTransaction({data,id}){
   let token_id=(JSON.parse(localStorage.getItem(LOCAL_TOKEN)))
-    const url = DELETE_TRANSACTION_API;
+    const url = UPDATE_TRANSACTION_API;
 
   const res = await axios.post(
     url,
