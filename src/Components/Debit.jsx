@@ -1,62 +1,53 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { fetchData } from "./http";
-import TableRow from "../utils/TableData";
-import Loader from "../utils/Loader";
-import ModalLayout from "../utils/ModelLayout";
-import { TableHead } from "../utils/TableData";
-import { ModalContext } from "../store/ModalContext";
-import { useContext } from "react";
+import { fetchAllTransaction } from "../http";
+import TableBody from "./CommonComponents/TableBody";
+import Loader from "./CommonComponents/Loader";
+import ModalLayout from "./CommonComponents/ModelLayout";
+import TableHead from "./CommonComponents/TableHead";
 import { FAIL_ERROR, QUERY_KEY } from "../Constants";
 
 export default function Debit() {
-  const context = useContext(ModalContext);
   const { data, isPending, isError, error } = useQuery({
-    queryKey: [QUERY_KEY, "debit"],
-    queryFn: fetchData,
+    queryKey: [QUERY_KEY, "debitData"],
+    queryFn: fetchAllTransaction,
   });
 
   let debitArray;
-  let content;
-  if (data) {
-    debitArray = data.transactions.filter((each) => each.type === "debit");
-    content = (
-      <main className="transaction_table">
-        <table>
-          <TableHead />
-          <TableRow
-            data={{ transactions: debitArray }}
-            handelModel={context.handelModel}
-          />
-        </table>
-      </main>
-    );
-  }
-
-  if (isError) {
-    content = (
-      <div className="errorMessage">
-        <h1 className="text-3xl font-bold text-red-600">{FAIL_ERROR}</h1>
-      </div>
-    );
-  }
-
-  if (isPending) {
-    content = (
-      <div className="Loader">
-        <Loader />
-      </div>
-    );
-  }
+  const debitData = () => {
+    switch (true) {
+      case data !== undefined: {
+        debitArray = data.transactions.filter((each) => each.type === "debit");
+        return (
+          <main className="transaction_table">
+            <table>
+              <TableHead />
+              <TableBody data={{ transactions: debitArray }} />
+            </table>
+          </main>
+        );
+      }
+      case isPending: {
+        return (
+          <div className="loader">
+            <Loader />
+          </div>
+        );
+      }
+      case isError: {
+        return (
+          <div className="errorMessage">
+            <h1 className="text-3xl font-bold text-red-600">{FAIL_ERROR}</h1>
+          </div>
+        );
+      }
+    }
+  };
 
   return (
     <div className="transaction_main">
-      <ModalLayout
-        openModal={context.openModal}
-        selectedData={context.selectedData}
-        handelModel={context.handelModel}
-      />
-      {content}
+      <ModalLayout />
+      {debitData()}
     </div>
   );
 }

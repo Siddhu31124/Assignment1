@@ -1,8 +1,9 @@
 import Sidebar from "../Components/Sidebar";
 import { Outlet, Navigate } from "react-router-dom";
+import { LOCAL_TOKEN, INITIAL_ROUTE } from "../Constants";
 
 export default function RootPage() {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem(LOCAL_TOKEN);
   const id = token ? JSON.parse(token) : null;
   const onSuccess = () => {
     return (
@@ -16,5 +17,5 @@ export default function RootPage() {
   if (id) {
     return onSuccess();
   }
-  return <Navigate to="/login" replace />;
+  return <Navigate to={INITIAL_ROUTE} replace />;
 }

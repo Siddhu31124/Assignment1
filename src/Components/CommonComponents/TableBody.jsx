@@ -4,15 +4,15 @@ import { CiCircleChevDown } from "react-icons/ci";
 import { FaPencilAlt } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { useContext } from "react";
-import { ModalContext } from "../store/ModalContext";
+import { ModalContext } from "../../store/ModalContext";
 
-export default function TableRow({ data }) {
+export default function TableBody({ data }) {
   const context = useContext(ModalContext);
   return (
     <tbody>
       {data.transactions.map((eachItem) => (
         <tr key={eachItem.id} className="transaction_details">
-          <td className="Arrow">
+          <td className="arrow">
             {eachItem.type === "credit" ? (
               <CiCircleChevUp className="text-2xl text-green-600" />
             ) : (
@@ -32,13 +32,13 @@ export default function TableRow({ data }) {
           <td>
             <button
               className="mx-5 text-green-500"
-              onClick={() => context.handelModel("isEdit", eachItem)}
+              onClick={() => context.handelOpenModal("isEdit", eachItem)}
             >
               <FaPencilAlt />
             </button>
             <button
               className="text-red-500"
-              onClick={() => context.handelModel("isDelete", eachItem.id)}
+              onClick={() => context.handelOpenModal("isDelete", eachItem.id)}
             >
               <MdDelete />
             </button>
@@ -46,18 +46,5 @@ export default function TableRow({ data }) {
         </tr>
       ))}
     </tbody>
-  );
-}
-
-export function TableHead() {
-  return (
-    <thead>
-      <tr className="transaction_details">
-        <th>Transaction Name</th>
-        <th>Category</th>
-        <th>Date</th>
-        <th>Amount</th>
-      </tr>
-    </thead>
   );
 }

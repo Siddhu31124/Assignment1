@@ -1,15 +1,17 @@
 import { useMutation } from "@tanstack/react-query";
 import { MdCancel } from "react-icons/md";
 import toast from "react-hot-toast";
+import { useContext } from "react";
 
-import { handelAddTransaction } from "./http";
-import { queryClient } from "./http";
-import Loader from "../utils/Loader";
-import Modal from "../utils/Modal";
-import Input from "../utils/Input";
+import { queryClient, handelAddTransaction } from "../http";
+import Loader from "./CommonComponents/Loader";
+import Modal from "./CommonComponents/Modal";
+import Input from "./CommonComponents/Input";
 import { QUERY_KEY } from "../Constants";
+import { ModalContext } from "../store/ModalContext";
 
-export default function AddModal({ isOpen, type, handelFunction, data }) {
+export default function AddModal() {
+  const context = useContext(ModalContext);
   let mutateFun = handelAddTransaction;
   const { mutate, isPending } = useMutation({
     mutationFn: mutateFun,
@@ -17,10 +19,14 @@ export default function AddModal({ isOpen, type, handelFunction, data }) {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEY],
       });
-      handelFunction(type);
+      closeModalFunction(typeOfModal);
       toast.success("Added Successfully");
     },
   });
+
+  const isOpen = context.ModalStates.isAdd;
+  const closeModalFunction = context.handelCloseModal;
+  const typeOfModal = "isAdd";
 
   function handelAddData(event) {
     event.preventDefault();
@@ -31,8 +37,8 @@ export default function AddModal({ isOpen, type, handelFunction, data }) {
 
   if (isPending) {
     return (
-      <Modal isOpen={isOpen} style="InputModal modal p-5">
-        <div className="Loader">
+      <Modal isOpen={isOpen} style="inputModal modal p-5">
+        <div className="loader">
           <Loader />
         </div>
       </Modal>
@@ -40,7 +46,7 @@ export default function AddModal({ isOpen, type, handelFunction, data }) {
   }
 
   return (
-    <Modal isOpen={isOpen} style="InputModal modal p-5">
+    <Modal isOpen={isOpen} style="inputModal modal p-5">
       <form
         className="p-6 flex flex-col gap-4 text-gray-500 font-normal"
         onSubmit={handelAddData}
@@ -50,7 +56,7 @@ export default function AddModal({ isOpen, type, handelFunction, data }) {
 
           <button
             type="button"
-            onClick={() => handelFunction(type)}
+            onClick={() => closeModalFunction(typeOfModal)}
             className="font-bold text-2xl"
           >
             <MdCancel />

@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 
-import { fetchTotalTransaction } from "./http";
+import { fetchTotalTransaction } from "../http";
 import { QUERY_KEY, FAIL_ERROR } from "../Constants";
 import totalCreditAndDebit from "../utils/TotalCreditAndDebit";
 
 export default function TotalCreditDebitContainer() {
-  const [states, setStates] = useState({ credit: "", debit: "" });
+  const [totalStates, setTotalStates] = useState({ credit: "", debit: "" });
   const {
     data: totalData,
     isPending,
@@ -20,7 +20,7 @@ export default function TotalCreditDebitContainer() {
       let data = totalCreditAndDebit(
         totalData.totals_credit_debit_transactions
       );
-      setStates(data);
+      setTotalStates(data);
     }
   }, [totalCreditAndDebit, totalData]);
 
@@ -37,7 +37,7 @@ export default function TotalCreditDebitContainer() {
     <div className="dash_amount">
       <div className="text-green-400 text-3xl font-bold">
         <div className="flex flex-col gap-1">
-          {states.credit}
+          {totalStates.credit}
           {content}
           <p className="text-base">Credit</p>
         </div>
@@ -45,7 +45,7 @@ export default function TotalCreditDebitContainer() {
       </div>
       <div className="text-red-500 text-3xl font-bold">
         <div className="flex flex-col gap-1">
-          {states.debit}
+          {totalStates.debit}
           {content}
           <p className="text-base">Debit</p>
         </div>

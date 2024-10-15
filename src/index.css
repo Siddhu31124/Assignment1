@@ -198,13 +198,13 @@ td,th{
   text-align: center;
 }
 
-.Loader{
+.loader{
   height:100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.Arrow{
+.arrow{
   display: flex;
   gap:1rem;
   align-items: center;
@@ -296,7 +296,7 @@ td,th{
   animation: fade-slide-up 0.3s ease-out forwards;
   border-radius:20px;
 }
-.InputModal{
+.inputModal{
   margin-left:550px;
   margin-top:60px;
   max-width: 420px;

@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-
-import { fetchLastTransaction } from "./http";
 import { useContext } from "react";
-import Loader from "../utils/Loader";
+
+import { fetchLastTransaction } from "../http";
+import Loader from "./CommonComponents/Loader";
 import TotalCreditDebitContainer from "./TotalCreditDebitContainer";
-import TableRow from "../utils/TableData";
-import ModalLayout from "../utils/ModelLayout";
+import TableBody from "./CommonComponents/TableBody";
+import ModalLayout from "./CommonComponents/ModelLayout";
 import { ModalContext } from "../store/ModalContext";
 import { FAIL_ERROR, QUERY_KEY } from "../Constants";
 
@@ -20,7 +20,7 @@ export default function DashBoard() {
   if (data) {
     content = (
       <table className="transaction_table_dashboard">
-        <TableRow data={data} />
+        <TableBody data={data} />
       </table>
     );
   }
@@ -39,16 +39,12 @@ export default function DashBoard() {
 
   return (
     <div className="dash_main">
-      <ModalLayout
-        openModal={context.openModal}
-        selectedData={context.selectedData}
-        handelModel={context.handelModel}
-      />
+      <ModalLayout />
       <nav>
         <h3 className="text-2xl font-bold">Accounts</h3>
         <button
           className="bg-blue-700 text-white hover:bg-blue-800 p-2 text-xs font-medium rounded-lg"
-          onClick={() => context.handelModel("isAdd")}
+          onClick={() => context.handelOpenModal("isAdd")}
         >
           + Add Transactions
         </button>

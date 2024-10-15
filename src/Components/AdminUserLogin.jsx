@@ -6,9 +6,9 @@ import { useState } from "react";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 
-import { loginToken } from "./http";
-import Input from "../utils/Input";
-import Loader from "../utils/Loader";
+import { handelLogin } from "../http";
+import Input from "./CommonComponents/Input";
+import Loader from "./CommonComponents/Loader";
 import {
   INITIAL_ROUTE,
   LOCAL_TOKEN,
@@ -22,15 +22,15 @@ export default function AdminUserLogin() {
   const [isLogin, setIsLogin] = useState(false);
   const navigate = useNavigate();
   const { mutate, isPending, isError } = useMutation({
-    mutationFn: loginToken,
+    mutationFn: handelLogin,
     onSuccess: () => {
       navigate(INITIAL_ROUTE);
     },
   });
 
-  let admin = false;
+  let isAdmin = false;
   if (location.pathname === ADMIN_LOGIN_ROUTE) {
-    admin = true;
+    isAdmin = true;
   }
 
   let id = localStorage.getItem(LOCAL_TOKEN);
@@ -39,14 +39,18 @@ export default function AdminUserLogin() {
     setIsLogin((preVal) => !preVal);
   }
 
-  console.log(isLogin);
-
-  function handelLogin(event) {
+  function loginFunction(event) {
     event.preventDefault();
     let data = new FormData(event.target);
     let loginData = Object.fromEntries(data.entries());
-    mutate({ data: loginData, admin: admin });
+    mutate({ data: loginData, admin: isAdmin });
   }
+  let errorContent = isError ? (
+    <p className="text-red-600 mb-2">{LOGIN_ERROR}</p>
+  ) : (
+    ""
+  );
+
   switch (true) {
     case id: {
       return <Navigate to={INITIAL_ROUTE} replace />;
@@ -55,7 +59,7 @@ export default function AdminUserLogin() {
     case isPending: {
       return (
         <div className="login-container">
-          <div className="Loader">
+          <div className="loader">
             <Loader />
           </div>
         </div>
@@ -67,7 +71,7 @@ export default function AdminUserLogin() {
         <div className="login-container">
           <div className="login-form">
             <h1 className="login-title">Login</h1>
-            <form onSubmit={handelLogin}>
+            <form onSubmit={loginFunction}>
               <div className="form-group">
                 <Input
                   label_name="Email"
@@ -90,7 +94,7 @@ export default function AdminUserLogin() {
                   required
                 />
               </div>
-              {isError && <p className="text-red-600 mb-2">{LOGIN_ERROR}</p>}
+              {errorContent}
               <button type="submit" className="login-btn">
                 Login
               </button>

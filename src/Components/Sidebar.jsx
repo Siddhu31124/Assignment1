@@ -5,11 +5,11 @@ import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
 import { useContext } from "react";
 import { FaCircleUser } from "react-icons/fa6";
+import { IoIosLogOut } from "react-icons/io";
 
 import { ModalContext } from "../store/ModalContext";
-import { IoIosLogOut } from "react-icons/io";
-import { INITIAL_ROUTE, TRANSACTION_ROUTE } from "../Constants";
-import { fetchUserProfile } from "./http";
+import { INITIAL_ROUTE, TRANSACTION_ROUTE, LOCAL_ADMIN } from "../Constants";
+import { fetchUserProfile } from "../http";
 
 export default function Sidebar() {
   const context = useContext(ModalContext);
@@ -26,7 +26,7 @@ export default function Sidebar() {
     name = data.name;
   }
   const path = location.pathname;
-  const isAdmin = localStorage.getItem("admin");
+  const isAdmin = localStorage.getItem(LOCAL_ADMIN);
   let content = <div className="active_indicator_transaction">i</div>;
 
   if (path === INITIAL_ROUTE) {
@@ -75,7 +75,7 @@ export default function Sidebar() {
         </div>
 
         <IoIosLogOut
-          onClick={() => context.handelModel("isLogout")}
+          onClick={() => context.handelOpenModal("isLogout")}
           color="rgba(113, 142, 191, 1)"
           className="text-lg mr-12 "
         />

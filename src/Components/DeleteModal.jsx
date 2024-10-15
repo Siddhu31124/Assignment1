@@ -2,14 +2,16 @@ import { MdCancel } from "react-icons/md";
 import { useMutation } from "@tanstack/react-query";
 import { CiWarning } from "react-icons/ci";
 import toast from "react-hot-toast";
+import { useContext } from "react";
 
-import { queryClient } from "../Components/http";
-import { DeleteLoader } from "../utils/Loader";
-import { handleTransactionDelete } from "../Components/http";
+import { queryClient, handleTransactionDelete } from "../http";
+import { DeleteLoader } from "./CommonComponents/Loader";
 import { QUERY_KEY } from "../Constants";
-import Modal from "../utils/Modal";
+import Modal from "./CommonComponents/Modal";
+import { ModalContext } from "../store/ModalContext";
 
-export default function DeleteModal({ isOpen, handelFunction, id }) {
+export default function DeleteModal() {
+  const context = useContext(ModalContext);
   const { mutate, isPending } = useMutation({
     mutationKey: ["deleteFn"],
     mutationFn: handleTransactionDelete,
@@ -17,13 +19,18 @@ export default function DeleteModal({ isOpen, handelFunction, id }) {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEY],
       });
-      handelFunction("isDelete");
+      closeModalFunction(typeOfModal);
       toast.success("Delete Successfully");
     },
   });
 
-  function handelDelete(id) {
-    mutate({ id });
+  const isOpen = context.ModalStates.isDelete;
+  const closeModalFunction = context.handelCloseModal;
+  const delete_transaction_id = context.selectedData;
+  const typeOfModal = "isDelete";
+
+  function handelDelete(delete_transaction_id) {
+    mutate({ id: delete_transaction_id });
   }
 
   if (isPending) {
@@ -46,7 +53,7 @@ export default function DeleteModal({ isOpen, handelFunction, id }) {
         <button
           type="button"
           className="font-bold text-2xl"
-          onClick={() => handelFunction("isDelete")}
+          onClick={() => closeModalFunction(typeOfModal)}
         >
           <MdCancel />
         </button>
@@ -57,13 +64,13 @@ export default function DeleteModal({ isOpen, handelFunction, id }) {
       <p className="flex gap-4 mb-1">
         <button
           className="border-2 p-2 rounded-lg text-sm"
-          onClick={() => handelFunction("isDelete")}
+          onClick={() => closeModalFunction(typeOfModal)}
         >
           No Leave it
         </button>
         <button
           className="bg-red-600 p-2 rounded-lg text-sm text-white"
-          onClick={() => handelDelete(id)}
+          onClick={() => handelDelete(delete_transaction_id)}
         >
           Delete
         </button>

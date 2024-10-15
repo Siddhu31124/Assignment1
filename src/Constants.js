@@ -22,3 +22,6 @@ export const ADD_TRANSACTION_API="https://bursting-gelding-24.hasura.app/api/res
 export const UPDATE_TRANSACTION_API='https://bursting-gelding-24.hasura.app/api/rest/update-transaction'
 export const LOGIN_API="https://bursting-gelding-24.hasura.app/api/rest/get-user-id"
 export const PROFILE_API='https://bursting-gelding-24.hasura.app/api/rest/profile'
+
+export const LIMIT_OF_ALL_TRANSACTION=100
+export const OFFSET_OF_ALL_TRANSACTION=0

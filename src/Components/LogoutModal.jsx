@@ -2,11 +2,14 @@ import toast from "react-hot-toast";
 import { MdCancel } from "react-icons/md";
 import { CiWarning } from "react-icons/ci";
 import { useNavigate } from "react-router";
+import { useContext } from "react";
 
-import Modal from "../utils/Modal";
+import Modal from "./CommonComponents/Modal";
 import { LOCAL_TOKEN, LOCAL_ADMIN, LOGIN_ROUTE } from "../Constants";
+import { ModalContext } from "../store/ModalContext";
 
-export default function LogoutModal({ isOpen, handelFunction }) {
+export default function LogoutModal() {
+  const context = useContext(ModalContext);
   const navigate = useNavigate();
   function handelLogOut() {
     localStorage.removeItem(LOCAL_TOKEN);
@@ -15,9 +18,13 @@ export default function LogoutModal({ isOpen, handelFunction }) {
       localStorage.removeItem(LOCAL_ADMIN);
     }
     navigate(LOGIN_ROUTE);
-    handelFunction("isLogout");
+    closeModalFunction(typeOfModal);
     toast.success("Logout Successfully");
   }
+
+  const isOpen = context.ModalStates.isLogout;
+  const closeModalFunction = context.handelCloseModal;
+  const typeOfModal = "isLogout";
 
   return (
     <div>
@@ -33,7 +40,7 @@ export default function LogoutModal({ isOpen, handelFunction }) {
             <button
               type="button"
               className="font-bold text-2xl"
-              onClick={() => handelFunction("isLogout")}
+              onClick={() => closeModalFunction(typeOfModal)}
             >
               <MdCancel />
             </button>
@@ -48,7 +55,7 @@ export default function LogoutModal({ isOpen, handelFunction }) {
             </button>
             <button
               className="border-2 p-2 rounded-lg text-sm"
-              onClick={() => handelFunction("isLogout")}
+              onClick={() => closeModalFunction(typeOfModal)}
             >
               Stay In
             </button>

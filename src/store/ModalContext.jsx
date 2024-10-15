@@ -1,28 +1,35 @@
 import { createContext } from "react";
 import { useState } from "react";
-export const ModalContext = createContext({
-  openModal: "",
-  selectedData: "",
-  handelModel: "",
-});
-export function ModalContextComponent({ children }) {
+export const ModalContext = createContext();
+export function ContextProvider({ children }) {
   const [selectedData, setSelectedData] = useState();
-  const [openModal, setOpenModal] = useState({
+  const [ModalStates, setModalState] = useState({
     isDelete: false,
     isAdd: false,
     isEdit: false,
     isLogout: false,
   });
-  function handelModel(item, data) {
+  function handelOpenModal(typeOfModal, data) {
     if (data) {
       setSelectedData(data);
     }
-    let identifier = item;
-    setOpenModal((prevVal) => {
-      return { ...prevVal, [identifier]: !prevVal[identifier] };
+    setModalState((prevVal) => {
+      return { ...prevVal, [typeOfModal]: true };
     });
   }
-  const contextStore = { openModal, selectedData, handelModel };
+  function handelCloseModal(typeOfModal) {
+    console.log(ModalStates);
+    console.log(typeOfModal);
+    setModalState((prevVal) => {
+      return { ...prevVal, [typeOfModal]: false };
+    });
+  }
+  const contextStore = {
+    ModalStates,
+    selectedData,
+    handelOpenModal,
+    handelCloseModal,
+  };
   return (
     <ModalContext.Provider value={contextStore}>
       {children}

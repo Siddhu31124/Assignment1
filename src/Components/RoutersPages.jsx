@@ -1,13 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import DashBoardPage from "../Pages/DashboardPage";
+import DashBoard from "./DashBoard";
 import RootPage from "../Pages/RootPage";
-import TransactionPage from "../Pages/TransactionPage";
+import Transaction from "./Transaction";
 import TransactionRootPage from "../Pages/TransactionRoot";
-import CreditPage from "../Pages/CreditPage";
-import DebitPage from "../Pages/DebitPage";
+import Credit from "./Credit";
+import Debit from "./Debit";
 import ErrorPage from "../Pages/ErrorPage";
-import AdminLoginPage from "../Pages/AdminLoginPage";
+import AdminUserLogin from "./AdminUserLogin";
 import {
   TRANSACTION_ROUTE,
   LOGIN_ROUTE,
@@ -17,21 +17,21 @@ import {
 
 export function routersPath() {
   return createBrowserRouter([
-    { path: LOGIN_ROUTE, element: <AdminLoginPage /> },
-    { path: ADMIN_LOGIN_ROUTE, element: <AdminLoginPage /> },
+    { path: LOGIN_ROUTE, element: <AdminUserLogin /> },
+    { path: ADMIN_LOGIN_ROUTE, element: <AdminUserLogin /> },
     {
       path: INITIAL_ROUTE,
       element: <RootPage />,
       errorElement: <ErrorPage />,
       children: [
-        { index: true, element: <DashBoardPage /> },
+        { index: true, element: <DashBoard /> },
         {
           path: TRANSACTION_ROUTE,
           element: <TransactionRootPage />,
           children: [
-            { index: true, element: <TransactionPage /> },
-            { path: "credit", element: <CreditPage /> },
-            { path: "debit", element: <DebitPage /> },
+            { index: true, element: <Transaction /> },
+            { path: "credit", element: <Credit /> },
+            { path: "debit", element: <Debit /> },
           ],
         },
       ],

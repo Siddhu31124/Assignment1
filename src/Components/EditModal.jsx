@@ -3,19 +3,27 @@ import toast from "react-hot-toast";
 import { MdCancel } from "react-icons/md";
 import { useMutation } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
+import { useContext } from "react";
 
-import Modal from "../utils/Modal";
-import Input from "../utils/Input";
-import { handelEditTransaction } from "./http";
-import { queryClient } from "./http";
-import Loader from "../utils/Loader";
+import Modal from "./CommonComponents/Modal";
+import Input from "./CommonComponents/Input";
+import { handelEditTransaction } from "../http";
+import { queryClient } from "../http";
+import Loader from "./CommonComponents/Loader";
 import { QUERY_KEY } from "../Constants";
+import { ModalContext } from "../store/ModalContext";
 
-export default function EditModal({ isOpen, type, handelFunction, data }) {
-  const [inputValues, setInputValues] = useState(data);
+export default function EditModal() {
+  const context = useContext(ModalContext);
+  const isOpen = context.ModalStates.isEdit;
+  const closeModalFunction = context.handelCloseModal;
+  const edit_transaction_data = context.selectedData;
+  const typeOfModal = "isEdit";
+
+  const [inputValues, setInputValues] = useState(edit_transaction_data);
   useEffect(() => {
-    setInputValues(data);
-  }, [data]);
+    setInputValues(edit_transaction_data);
+  }, [edit_transaction_data]);
   let mutateFun = handelEditTransaction;
   const { mutate, isPending } = useMutation({
     mutationFn: mutateFun,
@@ -23,7 +31,7 @@ export default function EditModal({ isOpen, type, handelFunction, data }) {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEY],
       });
-      handelFunction(type);
+      closeModalFunction(typeOfModal);
       toast.success(`Updated Successfully`);
     },
   });
@@ -40,11 +48,10 @@ export default function EditModal({ isOpen, type, handelFunction, data }) {
     let formData = Object.fromEntries(data.entries());
     mutate({ data: formData, id: id });
   }
-  console.log(data);
   if (isPending) {
     return (
-      <Modal isOpen={isOpen} style="InputModal modal p-5">
-        <div className="Loader">
+      <Modal isOpen={isOpen} style="inputModal modal p-5">
+        <div className="loader">
           <Loader />
         </div>
       </Modal>
@@ -52,17 +59,17 @@ export default function EditModal({ isOpen, type, handelFunction, data }) {
   }
 
   return (
-    <Modal isOpen={isOpen} style="InputModal modal p-5">
+    <Modal isOpen={isOpen} style="inputModal modal p-5">
       <form
         className="p-6 flex flex-col gap-4"
-        onSubmit={() => handelEditData(event, data.id)}
+        onSubmit={() => handelEditData(event, edit_transaction_data.id)}
       >
         <div className="flex justify-between">
           <h3 className="font-bold text-2xl">Add Transaction</h3>
 
           <button
             type="button"
-            onClick={() => handelFunction(type)}
+            onClick={() => closeModalFunction(typeOfModal)}
             className="font-bold text-2xl"
           >
             <MdCancel />
