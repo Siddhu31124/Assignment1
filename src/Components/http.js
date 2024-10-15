@@ -114,7 +114,6 @@ export async function handelEditTransaction({data,id}){
 }
 
 export async function loginToken({data,admin}){
-  console.log(admin,data)
   const url =
     LoginApi;
 
@@ -136,7 +135,6 @@ export async function loginToken({data,admin}){
 }
 export const fetchUserProfile = async () => {
   let token_id=(JSON.parse(localStorage.getItem(LocalToken)))
-  console.log('data');
     const url = ProfileApi;
     const res = await axios.get(url, {
       headers: {

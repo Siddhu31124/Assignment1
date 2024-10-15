@@ -14,10 +14,9 @@ export default function LogoutModal({ isOpen, handelFunction }) {
   const navigate = useNavigate();
   function handelLogOut() {
     localStorage.removeItem(LocalToken);
-    localStorage.removeItem(LocalAdmin);
     let admin = localStorage.getItem(LocalUserDetails);
     if (admin) {
-      localStorage.removeItem("admin");
+      localStorage.removeItem(LocalAdmin);
     }
     navigate(LoginRoute);
     handelFunction("logout");

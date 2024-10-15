@@ -7,13 +7,7 @@ import { Navigate } from "react-router";
 import { loginToken } from "./http";
 import Input from "../utils/Input";
 import Loader from "../utils/Loader";
-import {
-  InitialRoute,
-  LocalToken,
-  LocalUserDetails,
-  LoginRoute,
-  LoginError,
-} from "../Constants";
+import { InitialRoute, LocalToken, LoginRoute, LoginError } from "../Constants";
 
 export default function AdminLogin({ admin }) {
   const navigate = useNavigate();
@@ -31,7 +25,6 @@ export default function AdminLogin({ admin }) {
     let data = new FormData(event.target);
     let loginData = Object.fromEntries(data.entries());
     mutate({ data: loginData, admin: admin });
-    localStorage.setItem(LocalUserDetails, loginData.email);
   }
   switch (true) {
     case id: {

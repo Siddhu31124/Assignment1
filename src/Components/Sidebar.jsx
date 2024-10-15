@@ -18,7 +18,6 @@ export default function Sidebar() {
   });
   let email = "";
   let name = "";
-  console.log(data);
   if (data) {
     email = data.email;
     name = data.name;
