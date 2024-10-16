@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { fetchLastTransaction } from "../http";
 import Loader from "./CommonComponents/Loader";
 import TotalCreditDebitContainer from "./TotalCreditDebitContainer";
-import TableBody from "./CommonComponents/TableBody";
+import DashBoardTable from "./CommonComponents/DashBoardTable";
 import ModalLayout from "./CommonComponents/ModelLayout";
 import { ModalContext } from "../store/ModalContext";
 import { FAIL_ERROR, QUERY_KEY } from "../Constants";
@@ -20,11 +20,7 @@ export default function DashBoard() {
     switch (true) {
       case data !== undefined: {
         //Move the table element into the component and rename the component
-        return (
-          <table className="transaction_table_dashboard">
-            <TableBody data={data} />
-          </table>
-        );
+        return <DashBoardTable data={data} />;
       }
       case isPending: {
         return (

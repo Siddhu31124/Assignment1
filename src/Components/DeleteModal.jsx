@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { useContext } from "react";
 
 import { queryClient, handleTransactionDelete } from "../http";
-import { DeleteLoader } from "./CommonComponents/Loader";
+import Loader from "./CommonComponents/Loader";
 import { QUERY_KEY } from "../Constants";
 import Modal from "./CommonComponents/Modal";
 import { ModalContext } from "../store/ModalContext";
@@ -56,7 +56,9 @@ export default function DeleteModal() {
   if (isPending) {
     return (
       <Modal isOpen={isOpen} style="deleteModel modal p-5">
-        <DeleteLoader />
+        <div className="pt-4 pl-56 mr-2">
+          <Loader height="50" width="50" />
+        </div>
       </Modal>
     );
   }

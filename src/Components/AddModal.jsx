@@ -74,7 +74,7 @@ export default function AddModal() {
           placeholder="Transaction Name"
         />
         <Dropdown inputId="type" itemsName={TRANSACTION_TYPE} types />
-        <Dropdown inputId="type" itemsName={TRANSACTION_CATEGORY} />
+        <Dropdown inputId="category" itemsName={TRANSACTION_CATEGORY} />
         <Input
           label_name="Amount"
           type="number"

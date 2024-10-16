@@ -65,6 +65,18 @@ export default function EditModal() {
     );
   }
 
+  const cancelButton = () => {
+    return (
+      <button
+        type="button"
+        onClick={() => closeModalFunction(typeOfModal)}
+        className="font-bold text-2xl"
+      >
+        <MdCancel />
+      </button>
+    );
+  };
+
   return (
     <Modal isOpen={isOpen} style="inputModal modal p-5">
       <form
@@ -73,14 +85,7 @@ export default function EditModal() {
       >
         <div className="flex justify-between">
           <h3 className="font-bold text-2xl">Edit Transaction</h3>
-
-          <button
-            type="button"
-            onClick={() => closeModalFunction(typeOfModal)}
-            className="font-bold text-2xl"
-          >
-            <MdCancel />
-          </button>
+          {cancelButton()}
         </div>
 
         <p>Fill The Edit Details</p>

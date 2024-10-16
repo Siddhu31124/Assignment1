@@ -13,16 +13,17 @@ export default function Debit() {
     queryFn: fetchAllTransaction,
   });
 
-  let debitArray;
   const debitData = () => {
     switch (true) {
       case data !== undefined: {
-        debitArray = data.transactions.filter((each) => each.type === "debit");
+        let debitTransactionList = data.transactions.filter(
+          (each) => each.type === "debit"
+        );
         return (
           <main className="transaction_table">
             <table>
               <TableHead />
-              <TableBody data={{ transactions: debitArray }} />
+              <TableBody data={{ transactions: debitTransactionList }} />
             </table>
           </main>
         );

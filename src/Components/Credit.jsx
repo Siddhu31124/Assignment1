@@ -13,19 +13,17 @@ export default function Credit() {
     queryFn: fetchAllTransaction,
   });
 
-  let creditArray = undefined;
-
   const creditData = () => {
     switch (true) {
       case data !== undefined: {
-        creditArray = data.transactions.filter(
+        let creditTransactionArray = data.transactions.filter(
           (each) => each.type === "credit"
         );
         return (
           <main className="transaction_table">
             <table>
               <TableHead />
-              <TableBody data={{ transactions: creditArray }} />
+              <TableBody data={{ transactions: creditTransactionArray }} />
             </table>
           </main>
         );

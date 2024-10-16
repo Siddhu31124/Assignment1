@@ -11,6 +11,7 @@ export function ContextProvider({ children }) {
     isEdit: false,
     isLogout: false,
   });
+
   function handelOpenModal(typeOfModal, data) {
     if (data) {
       setSelectedData(data);
@@ -19,6 +20,7 @@ export function ContextProvider({ children }) {
       return { ...prevVal, [typeOfModal]: true };
     });
   }
+
   function handelCloseModal(typeOfModal) {
     setModalState((prevVal) => {
       return { ...prevVal, [typeOfModal]: false };
@@ -30,6 +32,7 @@ export function ContextProvider({ children }) {
     handelOpenModal,
     handelCloseModal,
   };
+
   return (
     <ModalContext.Provider value={contextStore}>
       {children}

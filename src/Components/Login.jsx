@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import { Navigate } from "react-router";
-import { useState } from "react";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 
@@ -18,10 +17,9 @@ import {
 } from "../Constants";
 
 //Rename the component
-export default function AdminUserLogin() {
+export default function Login() {
   const location = useLocation();
   //Rename this state
-  const [isLogin, setIsLogin] = useState(false);
   const navigate = useNavigate();
   const { mutate, isPending, isError } = useMutation({
     mutationFn: handelLogin,
@@ -31,17 +29,9 @@ export default function AdminUserLogin() {
   });
 
   //Remove this variable, we can compute this from the condition itself
-  let isAdmin = false;
-  if (location.pathname === ADMIN_LOGIN_ROUTE) {
-    isAdmin = true;
-  }
-
+  let isAdmin = location.pathname === ADMIN_LOGIN_ROUTE;
   //rename this as userId
-  let id = localStorage.getItem(LOCAL_TOKEN);
-
-  function handleChangePath() {
-    setIsLogin((preVal) => !preVal);
-  }
+  let user_Id = localStorage.getItem(LOCAL_TOKEN);
 
   function loginFunction(event) {
     event.preventDefault();
@@ -51,31 +41,31 @@ export default function AdminUserLogin() {
   }
 
   //avoid jsx variables over functions
-  let errorContent = isError ? (
-    <p className="text-red-600 mb-2">{LOGIN_ERROR}</p>
-  ) : (
-    ""
-  );
+
+  let errorContent = () => {
+    if (isError) {
+      return <p className="text-red-600 mb-2">{LOGIN_ERROR}</p>;
+    }
+  };
 
   //Change these code as render functions
-  switch (true) {
-    case id: {
-      return <Navigate to={INITIAL_ROUTE} replace />;
-    }
 
-    case isPending: {
-      return (
-        <div className="login-container">
+  const loginForm = () => {
+    switch (true) {
+      case user_Id: {
+        return <Navigate to={INITIAL_ROUTE} replace />;
+      }
+
+      case isPending: {
+        return (
           <div className="loader">
             <Loader />
           </div>
-        </div>
-      );
-    }
+        );
+      }
 
-    default: {
-      return (
-        <div className="login-container">
+      default: {
+        return (
           <div className="login-form">
             <h1 className="login-title">Login</h1>
             <form onSubmit={loginFunction}>
@@ -101,22 +91,24 @@ export default function AdminUserLogin() {
                   required
                 />
               </div>
-              {errorContent}
+              {errorContent()}
               <button type="submit" className="login-btn">
                 Login
               </button>
             </form>
-            <Link to={isLogin ? LOGIN_ROUTE : ADMIN_LOGIN_ROUTE}>
-              <p className="mt-2" onClick={handleChangePath}>
+            <Link to={isAdmin ? LOGIN_ROUTE : ADMIN_LOGIN_ROUTE}>
+              <p className="mt-2">
                 Login as
                 <span className="text-blue-500">
-                  {isLogin ? " User" : " Admin"} ?
+                  {isAdmin ? " User" : " Admin"} ?
                 </span>
               </p>
             </Link>
           </div>
-        </div>
-      );
+        );
+      }
     }
-  }
+  };
+
+  return <div className="login-container">{loginForm()}</div>;
 }

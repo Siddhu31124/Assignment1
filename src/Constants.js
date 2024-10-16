@@ -29,6 +29,7 @@ export const LIMIT_OF_ALL_TRANSACTION=100
 export const OFFSET_OF_ALL_TRANSACTION=0
 
 export const DATA_FORMAT="YYYY-MM-DD"
+export const TYPE_OF_TRANSACTION_CREDIT="credit"
 
 
 export const TRANSACTION_TYPE=[{name:"credit"},{name:"debit"}]
