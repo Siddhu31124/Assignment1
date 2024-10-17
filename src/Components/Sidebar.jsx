@@ -63,11 +63,11 @@ export default function Sidebar() {
   const sideBarContent = () => {
     return (
       <div>
-        <img src="Logo.png" className="ml-5" />
-        <ul>
+        <img src="Logo.png" className="ml-5 h-[35px] w-[80%] mb-10" />
+        <ul className="flex flex-col gap-4">
           <NavLink
             to={INITIAL_ROUTE}
-            className={({ isActive }) => (isActive ? "active" : "")}
+            className={({ isActive }) => (isActive ? "text-blue-800" : "")}
           >
             <li className="font-bold flex items-center">
               <IoHome className="mr-2 ml-6" />
@@ -76,7 +76,7 @@ export default function Sidebar() {
           </NavLink>
           <NavLink
             to={TRANSACTION_ROUTE}
-            className={({ isActive }) => (isActive ? "active" : "")}
+            className={({ isActive }) => (isActive ? "text-blue-800" : "")}
           >
             <li className="font-bold flex items-center">
               <GrTransaction className="mr-2 ml-6" />
@@ -89,10 +89,12 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="sidebar">
-      {styleBar}
-      {sideBarContent()}
-      {loginState()}
-    </aside>
+    <>
+      <aside className=" h-screen hidden  lg:flex lg:flex-col   lg:min-w-[250px] lg:max-w-[18vw] lg:border-r lg:border-gray-400 lg:pt-7 dark:bg-black dark:text-white">
+        {styleBar}
+        {sideBarContent()}
+        {loginState()}
+      </aside>
+    </>
   );
 }

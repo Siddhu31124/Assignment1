@@ -16,6 +16,7 @@ import {
   TRANSACTION_TYPE,
   DATA_FORMAT,
 } from "../Constants";
+import { loaderStyle } from "../utils/Styles";
 
 export default function EditModal() {
   const context = useContext(ModalContext);
@@ -57,8 +58,8 @@ export default function EditModal() {
 
   if (isPending) {
     return (
-      <Modal isOpen={isOpen} style="inputModal modal p-5">
-        <div className="loader">
+      <Modal isOpen={isOpen} style=" modal p-5">
+        <div className={loaderStyle}>
           <Loader />
         </div>
       </Modal>
@@ -78,13 +79,18 @@ export default function EditModal() {
   };
 
   return (
-    <Modal isOpen={isOpen} style="inputModal modal p-5">
+    <Modal
+      isOpen={isOpen}
+      style="bg-slate-100 dark:bg-slate-950 dark:text-white modal p-5"
+    >
       <form
         className="p-6 flex flex-col gap-4"
         onSubmit={(event) => handelEditData(event, editTransactionData.id)}
       >
         <div className="flex justify-between">
-          <h3 className="font-bold text-2xl">Edit Transaction</h3>
+          <h3 className="font-bold text-2xl dark:text-white">
+            Edit Transaction
+          </h3>
           {cancelButton()}
         </div>
 

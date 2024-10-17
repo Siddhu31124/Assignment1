@@ -4,6 +4,7 @@ import { useState } from "react";
 export const ModalContext = createContext();
 
 export function ContextProvider({ children }) {
+  const [isDarkMode, selIsDarkMode] = useState(false);
   const [selectedData, setSelectedData] = useState();
   const [ModalStates, setModalState] = useState({
     isDelete: false,
@@ -26,11 +27,18 @@ export function ContextProvider({ children }) {
       return { ...prevVal, [typeOfModal]: false };
     });
   }
+
+  function handelDarkMode() {
+    selIsDarkMode((preVal) => !preVal);
+  }
+
   const contextStore = {
     ModalStates,
     selectedData,
     handelOpenModal,
     handelCloseModal,
+    isDarkMode,
+    handelDarkMode,
   };
 
   return (

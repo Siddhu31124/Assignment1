@@ -1,13 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
+import { useContext } from "react";
 
 import { fetchAllTransaction } from "../http";
-import TableBody from "./CommonComponents/TableBody";
-import TableHead from "./CommonComponents/TableHead";
+import TransactionTable from "./CommonComponents/TransactionTable";
 import Loader from "./CommonComponents/Loader";
 import ModalLayout from "./CommonComponents/ModelLayout";
 import { QUERY_KEY, FAIL_ERROR } from "../Constants";
+import { ModalContext } from "../store/ModalContext";
+import MobileDetailsContainer from "./MobileDetailsContainer";
+import {
+  allTransactionMobileStyle,
+  allTransactionTableStyle,
+  transactionTableMain,
+} from "../utils/Styles";
 
 export default function Credit() {
+  const context = useContext(ModalContext);
   const { data, isPending, isError } = useQuery({
     queryKey: [QUERY_KEY, "creditData"],
     queryFn: fetchAllTransaction,
@@ -20,12 +28,19 @@ export default function Credit() {
           (each) => each.type === "credit"
         );
         return (
-          <main className="transaction_table">
-            <table>
-              <TableHead />
-              <TableBody data={{ transactions: creditTransactionArray }} />
-            </table>
-          </main>
+          <>
+            <main className={allTransactionTableStyle}>
+              <TransactionTable
+                data={{ transactions: creditTransactionArray }}
+                head
+              />
+            </main>
+            <main className={allTransactionMobileStyle}>
+              <MobileDetailsContainer
+                data={{ transactions: creditTransactionArray }}
+              />
+            </main>
+          </>
         );
       }
       case isPending: {
@@ -37,7 +52,7 @@ export default function Credit() {
       }
       case isError: {
         return (
-          <div className="errorMessage">
+          <div className="align-middle pt-96">
             <h1 className="text-3xl font-bold text-red-600">{FAIL_ERROR}</h1>
           </div>
         );
@@ -46,7 +61,7 @@ export default function Credit() {
   };
 
   return (
-    <div className="transaction_main">
+    <div className={transactionTableMain}>
       <ModalLayout />
       {creditData()}
     </div>

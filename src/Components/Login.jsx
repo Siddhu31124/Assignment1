@@ -15,6 +15,7 @@ import {
   LOGIN_ERROR,
   ADMIN_LOGIN_ROUTE,
 } from "../Constants";
+import { loginFormStyle, loginInputStyle } from "../utils/Styles";
 
 //Rename the component
 export default function Login() {
@@ -66,28 +67,30 @@ export default function Login() {
 
       default: {
         return (
-          <div className="login-form">
-            <h1 className="login-title">Login</h1>
+          <div className={loginFormStyle}>
+            <h1 className="text-5xl ml-30 mb-6 text-black dark:text-white">
+              Login
+            </h1>
             <form onSubmit={loginFunction}>
-              <div className="form-group">
+              <div className="mb-6">
                 <Input
                   label_name="Email"
                   type="email"
                   id="email"
                   name="email"
                   placeholder="Enter your email"
-                  className="form-input"
+                  className={loginInputStyle}
                   required
                 />
               </div>
-              <div className="form-group">
+              <div className="mb-6">
                 <Input
                   label_name="Password"
                   type="password"
                   id="password"
                   name="password"
                   placeholder="Transaction Name"
-                  className="form-input"
+                  className={loginInputStyle}
                   required
                 />
               </div>
@@ -110,5 +113,9 @@ export default function Login() {
     }
   };
 
-  return <div className="login-container">{loginForm()}</div>;
+  return (
+    <div className="h-screen flex flex-row justify-center items-center">
+      {loginForm()}
+    </div>
+  );
 }

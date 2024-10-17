@@ -1,11 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchAllTransaction } from "../http";
-import TableBody from "./CommonComponents/TableBody";
 import Loader from "./CommonComponents/Loader";
-import TableHead from "./CommonComponents/TableHead";
 import ModalLayout from "./CommonComponents/ModelLayout";
+import TransactionTable from "./CommonComponents/TransactionTable";
 import { QUERY_KEY, FAIL_ERROR } from "../Constants";
+import MobileDetailsContainer from "./MobileDetailsContainer";
+import {
+  allTransactionMobileStyle,
+  allTransactionTableStyle,
+  loaderStyle,
+  transactionTableMain,
+} from "../utils/Styles";
 
 export default function Transaction() {
   const { data, isPending, isError } = useQuery({
@@ -17,24 +23,26 @@ export default function Transaction() {
     switch (true) {
       case data !== undefined: {
         return (
-          <main className="transaction_table">
-            <table>
-              <TableHead />
-              <TableBody data={data} />
-            </table>
-          </main>
+          <>
+            <main className={allTransactionTableStyle}>
+              <TransactionTable data={data} head />
+            </main>
+            <main className={allTransactionMobileStyle}>
+              <MobileDetailsContainer data={data} />
+            </main>
+          </>
         );
       }
       case isPending: {
         return (
-          <div className="loader">
+          <div className={loaderStyle}>
             <Loader />
           </div>
         );
       }
       case isError: {
         return (
-          <div className="errorMessage">
+          <div className="align-middle pt-96">
             <h1 className="text-3xl font-bold text-red-600">{FAIL_ERROR}</h1>
           </div>
         );
@@ -43,7 +51,7 @@ export default function Transaction() {
   };
 
   return (
-    <div className="transaction_main">
+    <div className={transactionTableMain}>
       <ModalLayout />
       {allTransactionData()}
     </div>

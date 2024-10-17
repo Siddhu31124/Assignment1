@@ -35,7 +35,7 @@ export default function DeleteModal() {
 
   const deleteMsg = () => {
     return (
-      <div className="flex justify-between mb-2">
+      <div className="flex justify-between mb-2 ">
         <div className="flex gap-3 items-center">
           <CiWarning className=" text-orange-400 text-3xl font-bold" />
           <h3 className="font-bold text-xl">
@@ -55,7 +55,7 @@ export default function DeleteModal() {
 
   if (isPending) {
     return (
-      <Modal isOpen={isOpen} style="deleteModel modal p-5">
+      <Modal isOpen={isOpen} style="modal p-5">
         <div className="pt-4 pl-56 mr-2">
           <Loader height="50" width="50" />
         </div>
@@ -64,7 +64,10 @@ export default function DeleteModal() {
   }
 
   return (
-    <Modal isOpen={isOpen} style="deleteModel modal p-5">
+    <Modal
+      isOpen={isOpen}
+      style="bg-slate-100 dark:bg-slate-950 dark:text-white modal p-5"
+    >
       {deleteMsg()}
       <p className="text-gray-400 mb-2">
         The Transaction is Deleted Immeditely It cannot be undo

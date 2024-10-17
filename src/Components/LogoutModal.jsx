@@ -7,6 +7,7 @@ import { useContext } from "react";
 import Modal from "./CommonComponents/Modal";
 import { LOCAL_TOKEN, LOCAL_ADMIN, LOGIN_ROUTE } from "../Constants";
 import { ModalContext } from "../store/ModalContext";
+import { queryCache } from "../http";
 
 export default function LogoutModal() {
   const context = useContext(ModalContext);
@@ -17,6 +18,7 @@ export default function LogoutModal() {
     if (admin) {
       localStorage.removeItem(LOCAL_ADMIN);
     }
+    queryCache.clear();
     navigate(LOGIN_ROUTE);
     closeModalFunction(typeOfModal);
     toast.success("Logout Successfully");
@@ -48,7 +50,10 @@ export default function LogoutModal() {
 
   return (
     <div>
-      <Modal isOpen={isOpen} style="deleteModel modal p-5">
+      <Modal
+        isOpen={isOpen}
+        style="deleteModel bg-slate-100 dark:bg-slate-950 dark:text-white modal p-5"
+      >
         <div>
           {logoutMsg()}
           <p className="text-gray-400 mb-2">You will be Logout</p>

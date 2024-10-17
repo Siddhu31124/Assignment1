@@ -11,6 +11,7 @@ import { QUERY_KEY } from "../Constants";
 import { ModalContext } from "../store/ModalContext";
 import Dropdown from "./CommonComponents/Dropdown";
 import { TRANSACTION_CATEGORY, TRANSACTION_TYPE } from "../Constants";
+import { loaderStyle } from "../utils/Styles";
 
 export default function AddModal() {
   const context = useContext(ModalContext);
@@ -39,8 +40,11 @@ export default function AddModal() {
 
   if (isPending) {
     return (
-      <Modal isOpen={isOpen} style="inputModal modal p-5">
-        <div className="loader">
+      <Modal
+        isOpen={isOpen}
+        style="modal bg-slate-100 dark:bg-slate-950 dark:text-white p-5"
+      >
+        <div className={loaderStyle}>
           <Loader />
         </div>
       </Modal>
@@ -49,13 +53,18 @@ export default function AddModal() {
 
   //Add a seperate component for select
   return (
-    <Modal isOpen={isOpen} style="inputModal modal p-5">
+    <Modal
+      isOpen={isOpen}
+      style=" modal bg-slate-100 dark:bg-slate-950 dark:text-white p-5"
+    >
       <form
         className="p-6 flex flex-col gap-4 text-gray-500 font-normal"
         onSubmit={handelAddData}
       >
         <div className="flex justify-between">
-          <h3 className="font-bold text-2xl text-black">Add Transaction</h3>
+          <h3 className="font-bold text-2xl text-black dark:text-white">
+            Add Transaction
+          </h3>
 
           <button
             type="button"

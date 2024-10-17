@@ -1,14 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchAllTransaction } from "../http";
-import TableBody from "./CommonComponents/TableBody";
+import TransactionTable from "./CommonComponents/TransactionTable";
 import Loader from "./CommonComponents/Loader";
 import ModalLayout from "./CommonComponents/ModelLayout";
-import TableHead from "./CommonComponents/TableHead";
 import { FAIL_ERROR, QUERY_KEY } from "../Constants";
+import MobileDetailsContainer from "./MobileDetailsContainer";
+import {
+  allTransactionMobileStyle,
+  allTransactionTableStyle,
+  transactionTableMain,
+  loaderStyle,
+} from "../utils/Styles";
 
 export default function Debit() {
-  const { data, isPending, isError, error } = useQuery({
+  const { data, isPending, isError } = useQuery({
     queryKey: [QUERY_KEY, "debitData"],
     queryFn: fetchAllTransaction,
   });
@@ -20,24 +26,31 @@ export default function Debit() {
           (each) => each.type === "debit"
         );
         return (
-          <main className="transaction_table">
-            <table>
-              <TableHead />
-              <TableBody data={{ transactions: debitTransactionList }} />
-            </table>
-          </main>
+          <>
+            <main className={allTransactionTableStyle}>
+              <TransactionTable
+                data={{ transactions: debitTransactionList }}
+                head
+              />
+            </main>
+            <main className={allTransactionMobileStyle}>
+              <MobileDetailsContainer
+                data={{ transactions: debitTransactionList }}
+              />
+            </main>
+          </>
         );
       }
       case isPending: {
         return (
-          <div className="loader">
+          <div className={loaderStyle}>
             <Loader />
           </div>
         );
       }
       case isError: {
         return (
-          <div className="errorMessage">
+          <div className="align-middle pt-96">
             <h1 className="text-3xl font-bold text-red-600">{FAIL_ERROR}</h1>
           </div>
         );
@@ -46,7 +59,7 @@ export default function Debit() {
   };
 
   return (
-    <div className="transaction_main">
+    <div className={transactionTableMain}>
       <ModalLayout />
       {debitData()}
     </div>
