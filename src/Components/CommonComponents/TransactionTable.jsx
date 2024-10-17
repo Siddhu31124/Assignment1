@@ -23,9 +23,9 @@ export default function TransactionTable({ data, head, tableClass }) {
         {data.transactions.map((eachItem) => (
           <tr
             key={eachItem.id}
-            className="flex pb-4 items-center p-3 border-b-2 border-black dark:border-slate-500"
+            className="flex pb-4  items-center p-3 border-b-2 border-black dark:border-slate-500"
           >
-            <td className="flex gap-4 items-center">
+            <td className="flex  gap-4 items-center">
               {eachItem.type === TYPE_OF_TRANSACTION_CREDIT ? (
                 <CiCircleChevUp className="text-2xl text-green-600" />
               ) : (
@@ -33,13 +33,13 @@ export default function TransactionTable({ data, head, tableClass }) {
               )}
               {eachItem.transaction_name}
             </td>
-            <td>{eachItem.category}</td>
-            <td>{dayjs(eachItem.data).format(DATA_FORMAT)}</td>
+            <td className="">{eachItem.category}</td>
+            <td className="">{dayjs(eachItem.data).format(DATA_FORMAT)}</td>
             <td
               className={
                 eachItem.type === TYPE_OF_TRANSACTION_CREDIT
-                  ? "text-green-600"
-                  : "text-red-600"
+                  ? "text-green-600 "
+                  : "text-red-600 "
               }
             >
               {eachItem.type === TYPE_OF_TRANSACTION_CREDIT ? "+" : "-"}$
@@ -47,13 +47,13 @@ export default function TransactionTable({ data, head, tableClass }) {
             </td>
             <td>
               <button
-                className="mx-5 text-green-500"
+                className="mx-5  text-green-500"
                 onClick={() => context.handelOpenModal("isEdit", eachItem)}
               >
                 <FaPencilAlt />
               </button>
               <button
-                className="text-red-500"
+                className="text-red-500 "
                 onClick={() => context.handelOpenModal("isDelete", eachItem.id)}
               >
                 <MdDelete />

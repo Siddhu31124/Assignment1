@@ -1,7 +1,7 @@
 import Sidebar from "../Components/Sidebar";
 import { Outlet, Navigate } from "react-router-dom";
 import { useContext } from "react";
-import { LOCAL_TOKEN, INITIAL_ROUTE } from "../Constants";
+import { LOCAL_TOKEN, LOGIN_ROUTE } from "../Constants";
 import { ModalContext } from "../store/ModalContext";
 
 export default function RootPage() {
@@ -20,5 +20,5 @@ export default function RootPage() {
   if (id) {
     return onSuccess();
   }
-  return <Navigate to={INITIAL_ROUTE} replace />;
+  return <Navigate to={LOGIN_ROUTE} replace />;
 }

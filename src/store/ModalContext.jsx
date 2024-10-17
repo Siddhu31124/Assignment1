@@ -6,6 +6,7 @@ export const ModalContext = createContext();
 export function ContextProvider({ children }) {
   const [isDarkMode, selIsDarkMode] = useState(false);
   const [selectedData, setSelectedData] = useState();
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [ModalStates, setModalState] = useState({
     isDelete: false,
     isAdd: false,
@@ -32,6 +33,13 @@ export function ContextProvider({ children }) {
     selIsDarkMode((preVal) => !preVal);
   }
 
+  function handelOpenMenu() {
+    setIsOpenMenu((preVal) => !preVal);
+  }
+  function handelCloseMenu() {
+    setIsOpenMenu(false);
+  }
+
   const contextStore = {
     ModalStates,
     selectedData,
@@ -39,6 +47,9 @@ export function ContextProvider({ children }) {
     handelCloseModal,
     isDarkMode,
     handelDarkMode,
+    isOpenMenu,
+    handelOpenMenu,
+    handelCloseMenu,
   };
 
   return (

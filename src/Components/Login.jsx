@@ -68,7 +68,7 @@ export default function Login() {
       default: {
         return (
           <div className={loginFormStyle}>
-            <h1 className="text-5xl ml-30 mb-6 text-black dark:text-white">
+            <h1 className="text-4xl ml-30 mb-6 text-black dark:text-white">
               Login
             </h1>
             <form onSubmit={loginFunction}>

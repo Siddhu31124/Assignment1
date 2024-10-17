@@ -9,31 +9,27 @@ import { INITIAL_ROUTE, TRANSACTION_ROUTE } from "../Constants";
 import { mobileMenuStyle, mobileAddButton } from "../utils/Styles";
 
 const mobileNavBar = () => {
-  const [isOpenMenu, setIsOpenMenu] = useState(false);
   const context = useContext(ModalContext);
 
-  function handelOpenMenu() {
-    setIsOpenMenu((preVal) => !preVal);
-  }
-
   function handelLogoutMenu() {
-    handelOpenMenu();
+    context.handelOpenMenu();
     context.handelOpenModal("isLogout");
   }
 
   const menuElements = () => {
-    if (isOpenMenu) {
+    if (context.isOpenMenu) {
       return (
         <div className=" p-6 absolute bg-slate-100 w-screen top-16 dark:bg-black">
           <ul className="menu flex flex-col gap-4 ">
             <NavLink to={INITIAL_ROUTE} end>
-              <li onClick={handelOpenMenu}>Dashboard</li>
+              <li onClick={context.handelOpenMenu}>Dashboard</li>
             </NavLink>
             <NavLink to={TRANSACTION_ROUTE} end>
-              <li onClick={handelOpenMenu}>All Transaction</li>
+              <li onClick={context.handelOpenMenu}>All Transaction</li>
             </NavLink>
-            <li onClick={handelOpenMenu}>Close</li>
-            <li onClick={handelLogoutMenu}>Logout</li>
+            <li className="cursor-pointer" onClick={handelLogoutMenu}>
+              Logout
+            </li>
           </ul>
         </div>
       );
@@ -45,8 +41,8 @@ const mobileNavBar = () => {
       <div className={mobileMenuStyle}>
         <div className="flex gap-4">
           <RxHamburgerMenu
-            className="text-black text-2xl dark:text-white"
-            onClick={handelOpenMenu}
+            className="text-black text-2xl dark:text-white cursor-pointer"
+            onClick={context.handelOpenMenu}
           />
           <img src="Logo.png" />
         </div>

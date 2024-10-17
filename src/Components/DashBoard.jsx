@@ -72,7 +72,7 @@ export default function DashBoard() {
       <ModalLayout />
       {nav()}
       <MobileNavBar />
-      <main className="p-8 h-[93vh]">
+      <main className="p-8 h-[93vh]" onClick={context.handelCloseMenu}>
         <TotalCreditDebitContainer />
         <h3 className="mb-3 text-2xl font-bold">Last Transactions</h3>
         {lastTransaction()}
