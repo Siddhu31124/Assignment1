@@ -24,10 +24,6 @@ export async function fetchAllTransaction(){
     const res = await axios({
         method: "get",
             baseURL: ALL_TRANSACTION_API,
-            params: {
-                limit: LIMIT_OF_ALL_TRANSACTION,
-                offset: OFFSET_OF_ALL_TRANSACTION,
-            },
             headers: {"Content-Type": CONTENT_TYPE,
                       "x-hasura-admin-secret": SECRETE_KEY,
                       "x-hasura-role": ROLE,

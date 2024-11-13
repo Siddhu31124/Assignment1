@@ -17,7 +17,7 @@ export const ROLE="user"
 export const CONTENT_TYPE="application/json"
 export const SECRETE_KEY="g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF"
 
-export const ALL_TRANSACTION_API= "https://bursting-gelding-24.hasura.app/api/rest/all-transactions"
+export const ALL_TRANSACTION_API= "https://bursting-gelding-24.hasura.app/api/rest/all-transactions/?limit=100&offset=0"
 export const TOTAL_TRANSACTION_API= 'https://bursting-gelding-24.hasura.app/api/rest/credit-debit-totals'
 export const DELETE_TRANSACTION_API="https://bursting-gelding-24.hasura.app/api/rest/delete-transaction?id="
 export const ADD_TRANSACTION_API="https://bursting-gelding-24.hasura.app/api/rest/add-transaction"
